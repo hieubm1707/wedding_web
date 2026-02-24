@@ -1,61 +1,144 @@
-**Add your own guidelines here**
-<!--
+**Wedding Web Bot – Source-Aligned Guidelines**
 
-System Guidelines
+These guidelines describe how new code should be written to stay consistent with the existing code in `src/`.
 
-Use this file to provide the AI with rules and guidelines you want it to follow.
-This template outlines a few examples of things you can add. You can add your own sections and format it to suit your needs
+## General guidelines
 
-TIP: More context isn't always better. It can confuse the LLM. Try and add the most important rules you need
+- **Language & framework**
+  - Use **TypeScript** with **React** function components.
+  - Prefer **hooks** (`useState`, `useEffect`, custom hooks like `useTheme`, `useLang`) over class components.
+  - Keep JSX **presentational** where possible and push shared logic into hooks, context, or utilities.
 
-# General guidelines
+- **Project structure**
+  - Place page-level layout and composition in `app/App.tsx` and small, focused components under `app/components`.
+  - Put reusable primitives and design-system pieces in `app/components/ui`.
+  - Keep context, translations, and theme-related logic in `app/contexts` alongside their types.
+  - Keep style entrypoints in `styles` and import them from `main.tsx` or `App.tsx` (as done in `index.css` and `fonts.css`).
 
-Any general rules you want the AI to follow.
-For example:
+- **Styling**
+  - Use **Tailwind-like utility classes** (as seen in `HeroSection`, `NavBar`, and `ui` components) for layout and spacing.
+  - Use **CSS variables** driven by the theme context for colors (e.g. `--color-bg`, `--color-primary`) instead of hard-coding color literals in new code.
+  - For typography, follow existing choices:
+    - Headings: `"Playfair Display", serif`
+    - Body and UI text: `"Montserrat", sans-serif`
+  - Prefer **flex** and responsive layout utilities over fixed/absolute positioning. Use absolute positioning only for decorative elements (e.g. botanical SVGs).
 
-* Only use absolute positioning when necessary. Opt for responsive and well structured layouts that use flexbox and grid by default
-* Refactor code as you go to keep code clean
-* Keep file sizes small and put helper functions and components in their own files.
+- **State & logic**
+  - Keep **local UI state** (open/closed, hover, scroll, form field values) in the component that owns the UI.
+  - Use **contexts** for global concerns (theme palette, language, cross-section data).
+  - Avoid complex state machines or heavy libraries unless truly needed.
 
---------------
+- **Code style**
+  - Use **named function components** (`export function ComponentName() { ... }`) or small inner helper components where appropriate.
+  - Use **explicit interfaces and types** for props and structured data (e.g. `interface HeroSectionProps`, `interface Wish`).
+  - Prefer **early returns** and short helper functions instead of deeply nested `if`/`else`.
+  - Keep imports ordered: React/third-party, internal context/hooks, then local components/utilities.
 
-# Design system guidelines
-Rules for how the AI should make generations look like your company's design system
+## Design system & theming
 
-Additionally, if you select a design system to use in the prompt box, you can reference
-your design system's components, tokens, variables and components.
-For example:
+- **Color palettes**
+  - Extend or reuse the `ColorPalette` model defined in `AppContext.tsx` and add new palettes to the `palettes` array.
+  - When adding fields, update `ColorPalette`, all palette objects, and any CSS variable wiring in one change.
 
-* Use a base font-size of 14px
-* Date formats should always be in the format “Jun 10”
-* The bottom toolbar should only ever have a maximum of 4 items
-* Never use the floating action button with the bottom toolbar
-* Chips should always come in sets of 3 or more
-* Don't use a dropdown if there are 2 or fewer options
+- **Theming behavior**
+  - Use the `useTheme` hook to access `palette` and derive inline styles for color-sensitive elements.
+  - When adding new components that depend on theme colors, prefer **reading from `palette`** over introducing raw hex values.
+  - If you need new color tokens, add them to `ColorPalette` and propagate them to CSS variables in `AppProvider`.
 
-You can also create sub sections and add more specific details
-For example:
+- **Typography & spacing**
+  - Follow existing font stacks:
+    - `"Playfair Display", serif` for names, headings, and quote-style text.
+    - `"Montserrat", sans-serif` for navigation, labels, and body copy.
+  - Use `clamp(...)` for responsive font sizes on prominent text as done in `HeroSection`.
+  - Use generous, consistent spacing and letter-spacing values for navigation and section labels, matching current sections.
 
+- **Animations & motion**
+  - Use `motion` components from `motion/react` for subtle entrance transitions and highlights.
+  - Reuse timing and easing similar to existing components (e.g. duration around `1`, small delays chained for staged reveals).
+  - Keep motion subtle, performance-friendly, and accessible (avoid excessive continuous animations beyond simple loops like the scroll indicator).
 
-## Button
-The Button component is a fundamental interactive element in our design system, designed to trigger actions or navigate
-users through the application. It provides visual feedback and clear affordances to enhance user experience.
+## Components
+
+- **HeroSection**
+  - Continue using a full-viewport, centered layout with layered backgrounds and decorative SVG elements.
+  - Text should remain localized via `useLang().t.hero.*` and colors picked from `palette`.
+  - Avoid adding business logic here; the section should be focused on presentation and scroll behavior.
+
+- **NavBar**
+  - Maintain the pattern of:
+    - A fixed, scroll-reactive top nav bar.
+    - A desktop layout with spaced links and CTA.
+    - A mobile overlay menu controlled by internal state.
+  - Use smooth scrolling and prevent default navigation when scrolling to sections with IDs.
+  - Keep navigation labels and URLs driven by translations and constants, not inline strings.
+
+- **UI primitives (`app/components/ui`)**
+  - Follow the patterns in `button.tsx`:
+    - Define variants with `class-variance-authority` (`cva`).
+    - Use a `cn` utility to merge classes.
+    - Support `asChild` when appropriate via `Slot` from `@radix-ui/react-slot`.
+  - Keep each primitive **small and focused**, handling:
+    - Its own variants.
+    - Accessibility attributes.
+    - Basic layout concerns (sizing, alignment).
+  - Do not embed page-level logic or heavy state inside UI primitives.
+
+## Contexts, translations, and data
+
+- **App context**
+  - Add new global concerns (e.g. additional theme options, locale toggles) to `AppContext.tsx` using:
+    - Typed interfaces for context values.
+    - `createContext` defaults that are safe no-ops for setters.
+  - Whenever you add new context fields, expose them through custom hooks (`useTheme`, `useLang`) instead of importing contexts directly in components.
+
+- **Translations**
+  - For any new UI text, extend the `Translations` type and both `en` and `vi` objects in `AppContext.tsx`.
+  - Avoid inline literal strings in components when they should be localizable; prefer `t.*` lookups.
+  - For interpolation or pluralization, use typed helper functions (as done with `guestLabel` and `successTitle`).
+
+## Accessibility & UX
+
+- **Keyboard & focus**
+  - Ensure interactive elements are proper HTML elements (`button`, `a`, form controls) with appropriate attributes.
+  - Reuse accessible UI primitives for dialogs, menus, and overlays where possible.
+
+- **ARIA and semantics**
+  - Use semantic HTML for sections (`section`, `nav`, `footer`) and important content.
+  - Add ARIA attributes only when necessary; prefer native semantics first.
+
+- **Responsive behavior**
+  - New sections and components must work gracefully from small mobile screens up to large desktops.
+  - Use responsive utility classes (`md:*`, `lg:*`) instead of writing separate layouts in multiple components.
+
+## Example: Button component guidelines
+
+The `Button` component in `app/components/ui/button.tsx` is the primary action primitive and should be used whenever a clickable action is needed.
 
 ### Usage
-Buttons should be used for important actions that users need to take, such as form submissions, confirming choices,
-or initiating processes. They communicate interactivity and should have clear, action-oriented labels.
+
+- Use `Button` for actions such as submitting forms, confirming choices, or navigating with a clear call to action.
+- Prefer concise, verb-first labels (e.g. “RSVP Now”, “Send Wishes”).
+- When an action is destructive or high-risk, use the `destructive` variant to visually distinguish it.
 
 ### Variants
-* Primary Button
-  * Purpose : Used for the main action in a section or page
-  * Visual Style : Bold, filled with the primary brand color
-  * Usage : One primary button per section to guide users toward the most important action
-* Secondary Button
-  * Purpose : Used for alternative or supporting actions
-  * Visual Style : Outlined with the primary color, transparent background
-  * Usage : Can appear alongside a primary button for less important actions
-* Tertiary Button
-  * Purpose : Used for the least important actions
-  * Visual Style : Text-only with no border, using primary color
-  * Usage : For actions that should be available but not emphasized
--->
+
+- **Primary Button**
+  - **Purpose**: The main action for a view or section.
+  - **Visual style**: `variant="default"` with primary brand color from the current theme.
+  - **Usage**: Only one primary action per major section to guide user focus.
+
+- **Secondary Button**
+  - **Purpose**: Supporting actions that are important but not primary.
+  - **Visual style**: `variant="outline"` or `variant="secondary"` depending on emphasis needed.
+  - **Usage**: Can appear alongside a primary button for alternative flows.
+
+- **Ghost / Link Button**
+  - **Purpose**: Low-emphasis, inline, or text-like actions.
+  - **Visual style**: `variant="ghost"` or `variant="link"` with minimal background.
+  - **Usage**: Use when the action is optional or secondary to surrounding content.
+
+- **Icon Button**
+  - **Purpose**: Compact actions represented primarily by an icon.
+  - **Visual style**: `size="icon"` with clear affordance and accessible label (`aria-label`).
+  - **Usage**: Use sparingly for navigation toggles or small controls (e.g. mobile menu toggle).
+
