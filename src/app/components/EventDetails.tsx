@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { MapPin, Clock, Calendar, Flower } from "lucide-react";
 import { useTheme, useLang } from "../contexts/AppContext";
 
-const WEDDING_DATE = new Date("2026-09-20T10:00:00");
+const WEDDING_DATE = new Date("2026-05-30T17:00:00");
 
 function useCountdown(targetDate: Date) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -127,23 +127,6 @@ export function EventDetails() {
             <EventCard key={ev.title} ev={ev} index={i} />
           ))}
         </div>
-
-        {/* Dress Code */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mb-16 md:mb-20"
-        >
-          <div className="inline-block px-8 py-5" style={{ border: `1px solid ${palette.border}`, borderRadius: "2px", background: "rgba(255,255,255,0.45)" }}>
-            <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 500, marginBottom: "8px" }}>
-              {t.eventDetails.dressCodeLabel}
-            </p>
-            <p style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "1.1rem", fontWeight: 400 }}>
-              {t.eventDetails.dressCode}
-            </p>
-          </div>
-        </motion.div>
 
         {/* Countdown */}
         <motion.div
