@@ -230,7 +230,7 @@ const en: Translations = {
   hero: {
     badge: "We're Getting Married",
     date: "20 · September · 2026",
-    quote: '"In all the world, there is no heart for me like yours.\nIn all the world, there is no love for you like mine."',
+    quote: '"What God has joined together, let no one separate.\n(Mt 19:6)"',
     scroll: "Scroll",
   },
   ourStory: {
@@ -350,8 +350,7 @@ const vi: Translations = {
   hero: {
     badge: "Chúng Tôi Sắp Kết Hôn",
     date: "20 · Tháng Chín · 2026",
-    quote:
-      '"Trên khắp thế gian này, không có trái tim nào dành cho anh như trái tim em.\nVà không có tình yêu nào dành cho em như tình yêu của anh."',
+    quote: '"Sự gì Thiên Chúa đã kết hợp, loài người không được phân ly.\n(Mt 19:6)"',
     scroll: "Cuộn xuống",
   },
   ourStory: {

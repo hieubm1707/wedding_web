@@ -61,7 +61,7 @@ export function WeddingFooter() {
             </svg>
 
             {/* Names */}
-            <h2 className="mb-2" style={{ fontFamily: "'Playfair Display', serif", color: palette.textLight, fontSize: "clamp(2.5rem, 7vw, 5rem)", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.01em" }}>
+            <h2 className="mb-2 playfair-font" style={{ color: palette.textLight, fontSize: "clamp(2.5rem, 7vw, 5rem)", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.01em" }}>
               Linh &amp; Minh
             </h2>
             <p className="mb-8" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.7rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
@@ -72,13 +72,13 @@ export function WeddingFooter() {
 
             {/* Thank you */}
             <div className="mt-10 mb-10 max-w-xl mx-auto">
-              <p style={{ fontFamily: "'Playfair Display', serif", color: palette.textLight, fontSize: "clamp(1rem, 2.5vw, 1.25rem)", lineHeight: 1.9, fontStyle: "italic", fontWeight: 400, opacity: 0.92 }}>
+              <p className="playfair-font" style={{ color: palette.textLight, fontSize: "clamp(1rem, 2.5vw, 1.25rem)", lineHeight: 1.9, fontStyle: "italic", fontWeight: 400, opacity: 0.92 }}>
                 {t.footer.thankYou}
               </p>
               <p className="mt-6" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.8 }}>
                 {t.footer.withLove}
               </p>
-              <p className="mt-2" style={{ fontFamily: "'Playfair Display', serif", color: palette.textLight, fontSize: "1.2rem", fontStyle: "italic" }}>
+              <p className="mt-2 playfair-font" style={{ color: palette.textLight, fontSize: "1.2rem", fontStyle: "italic" }}>
                 Linh &amp; Minh
               </p>
             </div>

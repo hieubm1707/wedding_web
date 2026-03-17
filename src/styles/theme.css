@@ -137,25 +137,42 @@
     font-size: var(--font-size);
   }
 
+  .montserrat-font {
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .playfair-font {
+    font-family: "Playfair Display", "Times New Roman", serif;
+  }
+  
+  .mussica-font {
+    font-family: "Mussica Swash", "Times New Roman", serif;
+  }
+
+
   h1 {
+    font-family: "Mussica Swash", "Playfair Display", "Times New Roman", serif;
     font-size: var(--text-2xl);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h2 {
+    font-family: "Mussica Swash", "Playfair Display", "Times New Roman", serif;
     font-size: var(--text-xl);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h3 {
+    font-family: "Mussica Swash", "Playfair Display", "Times New Roman", serif;
     font-size: var(--text-lg);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h4 {
+    font-family: "Mussica Swash", "Playfair Display", "Times New Roman", serif;
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;

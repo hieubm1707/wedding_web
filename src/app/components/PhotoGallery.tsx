@@ -71,7 +71,7 @@ export function PhotoGallery() {
           <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
             {t.gallery.badge}
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
+          <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
             {t.gallery.title}
           </h2>
           <div className="flex items-center justify-center gap-4 mt-5">

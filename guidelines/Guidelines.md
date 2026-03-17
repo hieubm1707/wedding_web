@@ -19,7 +19,7 @@ These guidelines describe how new code should be written to stay consistent with
   - Use **Tailwind-like utility classes** (as seen in `HeroSection`, `NavBar`, and `ui` components) for layout and spacing.
   - Use **CSS variables** driven by the theme context for colors (e.g. `--color-bg`, `--color-primary`) instead of hard-coding color literals in new code.
   - For typography, follow existing choices:
-    - Headings: `"Playfair Display", serif`
+    - Headings: `"Mussica Swash", "Playfair Display", serif`
     - Body and UI text: `"Montserrat", sans-serif`
   - Prefer **flex** and responsive layout utilities over fixed/absolute positioning. Use absolute positioning only for decorative elements (e.g. botanical SVGs).
 
@@ -47,7 +47,7 @@ These guidelines describe how new code should be written to stay consistent with
 
 - **Typography & spacing**
   - Follow existing font stacks:
-    - `"Playfair Display", serif` for names, headings, and quote-style text.
+    - `"Mussica Swash", "Playfair Display", serif` for names, headings, and quote-style text.
     - `"Montserrat", sans-serif` for navigation, labels, and body copy.
   - Use `clamp(...)` for responsive font sizes on prominent text as done in `HeroSection`.
   - Use generous, consistent spacing and letter-spacing values for navigation and section labels, matching current sections.

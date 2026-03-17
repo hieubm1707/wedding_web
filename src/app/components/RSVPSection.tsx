@@ -91,7 +91,7 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
           <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
             {t.rsvp.badge}
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
+          <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
             {t.rsvp.title}
           </h2>
           <div className="flex items-center justify-center gap-4 mt-5">
@@ -177,7 +177,7 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
               <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: palette.primary }}>
                 <Check size={24} color={palette.textLight} strokeWidth={1.5} />
               </div>
-              <h3 className="mb-3" style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "1.5rem", fontWeight: 400 }}>
+              <h3 className="mb-3 playfair-font" style={{ color: palette.text, fontSize: "1.5rem", fontWeight: 400 }}>
                 {t.rsvp.successTitle(form.name)}
               </h3>
               <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.88rem", lineHeight: 1.9, fontWeight: 300 }}>

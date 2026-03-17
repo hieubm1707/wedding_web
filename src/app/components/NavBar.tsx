@@ -46,7 +46,6 @@ export function NavBar() {
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             style={{
-              fontFamily: "'Playfair Display', serif",
               color: scrolled ? palette.text : "#F8F8F4",
               fontSize: "1.1rem",
               fontWeight: 400,
@@ -55,6 +54,7 @@ export function NavBar() {
               textShadow: scrolled ? "none" : "0 1px 6px rgba(0,0,0,0.25)",
               transition: "color 0.4s",
             }}
+            className="playfair-font"
           >
             L &amp; M
           </a>
@@ -127,7 +127,7 @@ export function NavBar() {
           className="fixed inset-0 z-30 flex flex-col items-center justify-center gap-8"
           style={{ background: `${palette.bg1}FA`, backdropFilter: "blur(16px)" }}
         >
-          <p style={{ fontFamily: "'Playfair Display', serif", color: palette.accent, fontSize: "1.5rem", fontStyle: "italic" }}>
+          <p className="playfair-font" style={{ color: palette.accent, fontSize: "1.5rem", fontStyle: "italic" }}>
             Linh &amp; Minh
           </p>
           {navLinks.map((link) => (

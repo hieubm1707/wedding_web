@@ -87,7 +87,7 @@ function StoryItem({
         <h3
           className="mb-4"
           style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: '"Mussica Swash", "Playfair Display", serif',
             color: palette.text,
             fontSize: "clamp(1.3rem, 3vw, 1.8rem)",
             fontWeight: 400,
@@ -147,7 +147,7 @@ export function OurStory() {
           </p>
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: '"Mussica Swash", "Playfair Display", serif',
               color: palette.text,
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
               fontWeight: 400,

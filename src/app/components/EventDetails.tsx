@@ -30,7 +30,7 @@ function CountdownBlock({ value, label }: { value: number; label: string }) {
   const { palette } = useTheme();
   return (
     <div className="flex flex-col items-center">
-      <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 6vw, 3.5rem)", color: palette.textLight, fontWeight: 400, lineHeight: 1 }}>
+      <span className="playfair-font" style={{ fontSize: "clamp(2rem, 6vw, 3.5rem)", color: palette.textLight, fontWeight: 400, lineHeight: 1 }}>
         {String(value).padStart(2, "0")}
       </span>
       <span className="mt-2" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", color: palette.textOnDark, letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 500 }}>
@@ -57,7 +57,7 @@ function EventCard({ ev, index }: { ev: { icon: string; title: string; date: str
       <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-full" style={{ background: palette.bg1, color: palette.primary }}>
         {ev.icon === "flower" ? <Flower size={20} strokeWidth={1.5} /> : <Calendar size={20} strokeWidth={1.5} />}
       </div>
-      <h3 className="mb-6" style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "1.4rem", fontWeight: 400 }}>
+      <h3 className="mb-6 playfair-font" style={{ color: palette.text, fontSize: "1.4rem", fontWeight: 400 }}>
         {ev.title}
       </h3>
       <div className="flex flex-col gap-4">
@@ -78,7 +78,7 @@ function EventCard({ ev, index }: { ev: { icon: string; title: string; date: str
         </div>
       </div>
       <div className="mt-8 pt-6" style={{ borderTop: `1px solid ${palette.light}` }}>
-        <p style={{ fontFamily: "'Playfair Display', serif", color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>
+        <p className="playfair-font" style={{ color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>
       </div>
     </motion.div>
   );
@@ -94,7 +94,7 @@ export function EventDetails() {
   const countdownInView = useInView(countdownRef, { once: true, margin: "-60px" });
 
   const sep = (
-    <span style={{ fontFamily: "'Playfair Display', serif", color: palette.textOnDark, fontSize: "clamp(1.5rem, 4vw, 2.5rem)", lineHeight: 1, alignSelf: "flex-start", paddingTop: "4px" }}>:</span>
+    <span className="playfair-font" style={{ color: palette.textOnDark, fontSize: "clamp(1.5rem, 4vw, 2.5rem)", lineHeight: 1, alignSelf: "flex-start", paddingTop: "4px" }}>:</span>
   );
 
   return (
@@ -111,7 +111,7 @@ export function EventDetails() {
           <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
             {t.eventDetails.badge}
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
+          <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
             {t.eventDetails.title}
           </h2>
           <div className="flex items-center justify-center gap-4 mt-5">
@@ -137,7 +137,7 @@ export function EventDetails() {
           className="rounded-sm p-10 md:p-14 text-center"
           style={{ background: palette.countdownBg }}
         >
-          <p className="mb-8" style={{ fontFamily: "'Playfair Display', serif", color: palette.textOnDark, fontSize: "1rem", fontStyle: "italic", fontWeight: 400 }}>
+          <p className="mb-8 playfair-font" style={{ color: palette.textOnDark, fontSize: "1rem", fontStyle: "italic", fontWeight: 400 }}>
             {t.eventDetails.countdownLabel}
           </p>
           <div className="flex justify-center items-start gap-4 md:gap-10">

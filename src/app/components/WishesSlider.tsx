@@ -40,7 +40,7 @@ function WishCard({ wish, featured = false }: { wish: Wish; featured?: boolean }
       <div className="mb-5">
         <QuoteIcon color={palette.light} />
       </div>
-      <p className="flex-1 mb-6" style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "0.95rem", lineHeight: 1.9, fontStyle: "italic", fontWeight: 400 }}>
+      <p className="flex-1 mb-6 playfair-font" style={{ color: palette.text, fontSize: "0.95rem", lineHeight: 1.9, fontStyle: "italic", fontWeight: 400 }}>
         {wish.message}
       </p>
       <div className="flex items-center justify-between">
@@ -88,7 +88,7 @@ export function WishesSlider({ wishes: extraWishes }: WishesSliderProps) {
           <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
             {t.wishes.badge}
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
+          <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
             {t.wishes.title}
           </h2>
           <div className="flex items-center justify-center gap-4 mt-5">

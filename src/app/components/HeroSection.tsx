@@ -53,39 +53,39 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
         >
           <h1
             style={{
-              fontFamily: "'Playfair Display', serif",
               color: palette.text,
               fontSize: "clamp(3rem, 9vw, 7rem)",
               lineHeight: 1,
               letterSpacing: "-0.01em",
               fontWeight: 400,
             }}
+            className="mussica-font"
           >
-            Linh
+            Minh Hiếu
           </h1>
           <span
             style={{
-              fontFamily: "'Playfair Display', serif",
               color: palette.accent,
               fontSize: "clamp(1.5rem, 4vw, 3rem)",
               fontStyle: "italic",
               lineHeight: 1.2,
               fontWeight: 400,
             }}
+            className="playfair-font"
           >
             &amp;
           </span>
           <h1
             style={{
-              fontFamily: "'Playfair Display', serif",
               color: palette.text,
               fontSize: "clamp(3rem, 9vw, 7rem)",
               lineHeight: 1,
               letterSpacing: "-0.01em",
               fontWeight: 400,
             }}
+            className="mussica-font"
           >
-            Minh
+            Thảo Tiên
           </h1>
         </motion.div>
 
@@ -111,9 +111,8 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.1 }}
-          className="max-w-md"
+          className="max-w-md playfair-font"
           style={{
-            fontFamily: "'Playfair Display', serif",
             color: palette.textMuted,
             fontSize: "clamp(0.9rem, 2vw, 1.05rem)",
             fontStyle: "italic",

@@ -42,7 +42,7 @@ export function LocationSection() {
           <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
             {t.location.badge}
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
+          <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
             {t.location.title}
           </h2>
           <div className="flex items-center justify-center gap-4 mt-5">
@@ -68,7 +68,7 @@ export function LocationSection() {
                 <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 500, marginBottom: "6px" }}>
                   {card.label}
                 </p>
-                <h4 style={{ fontFamily: "'Playfair Display', serif", color: palette.text, fontSize: "1.05rem", fontWeight: 400, marginBottom: "4px" }}>
+                <h4 className="playfair-font" style={{ color: palette.text, fontSize: "1.05rem", fontWeight: 400, marginBottom: "4px" }}>
                   {card.name}
                 </h4>
                 <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.7, whiteSpace: "pre-line" }}>
