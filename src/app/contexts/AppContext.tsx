@@ -189,7 +189,13 @@ export interface Translations {
   eventDetails: {
     badge: string;
     title: string;
-    events: { icon: string; title: string; date: string; time: string; venue: string; address: string; note: string }[];
+    events: {
+      icon: string;
+      title: string;
+      date: string;
+      items: { time: string; title: string; venue: string; address: string }[];
+      note?: string;
+    }[];
     dressCodeLabel: string;
     dressCode: string;
     countdownLabel: string;
@@ -292,23 +298,62 @@ const en: Translations = {
     title: "Event Details",
     events: [
       {
-        icon: "flower",
-        title: "Wedding Ceremony",
-        date: "Sunday, 20 September 2026",
-        time: "10:00 AM",
-        venue: "The Garden of Serenity",
-        address: "12 Hoa Viên Lane, Hội An, Quảng Nam",
-        note: "Please arrive 15 minutes early",
+        icon: "heart-home",
+        title: "Bride's Family Celebration",
+        date: "Saturday, 25 April 2026",
+        items: [
+          {
+            time: "07:30 AM",
+            title: "Traditional Ceremony",
+            venue: "Bride's Residence",
+            address: "Gia Lai",
+          },
+          {
+            time: "10:30 AM",
+            title: "Wedding Reception",
+            venue: "Quang Chau Restaurant",
+            address: "55 Vo Van Dung, Dinh Tan, Vinh Thanh, Gia Lai",
+          }
+        ],
       },
       {
-        icon: "calendar",
-        title: "Wedding Reception",
-        date: "Sunday, 20 September 2026",
-        time: "6:00 PM",
-        venue: "The Lantern Hall",
-        address: "88 Nguyễn Thái Học, Hội An, Quảng Nam",
-        note: "Dinner & celebration to follow",
+        icon: "church",
+        title: "Groom's Family Celebration",
+        date: "Saturday, 02 May 2026",
+        items: [
+          {
+            time: "09:00 AM",
+            title: "Holy Matrimony",
+            venue: "Trung Thanh Church",
+            address: "Thanh Dong, An Giang",
+          },
+          {
+            time: "11:00 AM",
+            title: "Traditional Ceremony",
+            venue: "Groom's Residence",
+            address: "320A Kinh 9 St, Thanh Dong, An Giang",
+          },
+          {
+            time: "11:30 AM",
+            title: "Wedding Reception",
+            venue: "Groom's Residence",
+            address: "320A Kinh 9 St, Thanh Dong, An Giang",
+          }
+        ],
       },
+      {
+        icon: "party",
+        title: "Celebration Party",
+        date: "Saturday, 30 May 2026",
+        items: [
+          {
+            time: "6:00 PM",
+            title: "Evening Reception",
+            venue: "Dai Hy Wedding Restaurant",
+            address: "156 Ly Chieu Hoang, Binh Phu, Ho Chi Minh City",
+          }
+        ],
+      }
     ],
     dressCodeLabel: "Dress Code",
     dressCode: "Garden Chic — Soft Florals & Earth Tones",
@@ -413,23 +458,62 @@ const vi: Translations = {
     title: "Hôn lễ và Tiệc cưới",
     events: [
       {
-        icon: "flower",
-        title: "Lễ Thành Hôn",
-        date: "Chủ Nhật, 20 Tháng 9 năm 2026",
-        time: "10:00 Sáng",
-        venue: "The Garden of Serenity",
-        address: "12 Hoa Viên Lane, Hội An, Quảng Nam",
-        note: "Vui lòng đến sớm 15 phút",
+        icon: "heart-home",
+        title: "Lễ Vu Quy",
+        date: "Thứ Bảy, 25 Tháng 04 Năm 2026",
+        items: [
+          {
+            time: "07:30 Sáng",
+            title: "Lễ Vu Quy",
+            venue: "Tư gia nhà gái",
+            address: "74 Nguyễn Huệ, Thôn Định An, Xã Vĩnh Thạnh, T. Gia Lai",
+          },
+          {
+            time: "10:30 Sáng",
+            title: "Tiệc Cưới",
+            venue: "Nhà hàng Quang Châu",
+            address: "55 Võ Văn Dũng, Thôn Định Tân, Xã Vĩnh Thạnh, T. Gia Lai",
+          }
+        ],
       },
       {
-        icon: "calendar",
-        title: "Tiệc Cưới",
-        date: "Chủ Nhật, 20 Tháng 9 năm 2026",
-        time: "6:00 Chiều",
-        venue: "The Lantern Hall",
-        address: "88 Nguyễn Thái Học, Hội An, Quảng Nam",
-        note: "Tiệc tối & lễ mừng sẽ tiếp tục",
+        icon: "church",
+        title: "Lễ Thành Hôn",
+        date: "Thứ Bảy, 02 Tháng 05 Năm 2026",
+        items: [
+          {
+            time: "09:00 Sáng",
+            title: "Thánh Lễ Hôn Phối",
+            venue: "Giáo xứ Trung Thành",
+            address: "Xã Thạnh Đông, T. An Giang",
+          },
+          {
+            time: "11:00 Sáng",
+            title: "Lễ Thành Hôn",
+            venue: "Tư gia nhà trai",
+            address: "320A Đường Kinh 9, Xã Thạnh Đông, T. An Giang",
+          },
+          // {
+          //   time: "11:30 Trưa",
+          //   title: "Tiệc Cưới",
+          //   venue: "Tư gia nhà trai",
+          //   address: "320A Đường Kinh 9, Xã Thạnh Đông, Tỉnh An Giang",
+          // }
+        ],
       },
+      {
+        icon: "party",
+        title: "Tiệc Báo Hỷ",
+        date: "Thứ Bảy, 30 Tháng 05 Năm 2026",
+        items: [
+          {
+            time: "18:00 Tối",
+            title: "Tiệc Báo Hỷ",
+            venue: "Nhà hàng tiệc cưới Đại Hỷ",
+            address: "156 Đ. Lý Chiêu Hoàng, Phường Bình Phú, Quận 6, TP. Hồ Chí Minh",
+          }
+        ],
+      }
     ],
     dressCodeLabel: "Trang Phục",
     dressCode: "Phong Cách Vườn — Hoa Pastel & Tông Đất",

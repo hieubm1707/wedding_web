@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef, useState, useEffect } from "react";
-import { MapPin, Clock, Calendar, Flower } from "lucide-react";
+import { MapPin, Clock, Calendar, Flower, Church, PartyPopper, Heart } from "lucide-react";
 import { useTheme, useLang } from "../contexts/AppContext";
 
 const WEDDING_DATE = new Date("2026-05-30T17:00:00");
@@ -40,10 +40,18 @@ function CountdownBlock({ value, label }: { value: number; label: string }) {
   );
 }
 
-function EventCard({ ev, index }: { ev: { icon: string; title: string; date: string; time: string; venue: string; address: string; note: string }; index: number }) {
+function EventCard({ ev, index }: { ev: { icon: string; title: string; date: string; items: { time: string; title: string; venue: string; address: string }[]; note?: string }; index: number }) {
   const { palette } = useTheme();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const getIcon = () => {
+    if (ev.icon === "flower") return <Flower size={20} strokeWidth={1.5} />;
+    if (ev.icon === "church") return <Church size={20} strokeWidth={1.5} />;
+    if (ev.icon === "party") return <PartyPopper size={20} strokeWidth={1.5} />;
+    if (ev.icon === "heart-home") return <Heart size={20} strokeWidth={1.5} />;
+    return <Calendar size={20} strokeWidth={1.5} />;
+  };
 
   return (
     <motion.div
@@ -51,35 +59,52 @@ function EventCard({ ev, index }: { ev: { icon: string; title: string; date: str
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15 }}
-      className="flex flex-col p-8 md:p-10"
+      className="flex flex-col p-8 md:p-10 h-full"
       style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: "2px" }}
     >
       <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-full" style={{ background: palette.bg1, color: palette.primary }}>
-        {ev.icon === "flower" ? <Flower size={20} strokeWidth={1.5} /> : <Calendar size={20} strokeWidth={1.5} />}
+        {getIcon()}
       </div>
-      <h3 className="mb-6 playfair-font" style={{ color: palette.text, fontSize: "1.4rem", fontWeight: 400 }}>
+      <h3 className="mb-3 playfair-font" style={{ color: palette.text, fontSize: "1.4rem", fontWeight: 400 }}>
         {ev.title}
       </h3>
-      <div className="flex flex-col gap-4">
-        <div className="flex items-start gap-3">
-          <Calendar size={14} strokeWidth={1.5} style={{ color: palette.accent, marginTop: "2px", flexShrink: 0 }} />
-          <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.85rem", fontWeight: 300, lineHeight: 1.6 }}>{ev.date}</span>
-        </div>
-        <div className="flex items-start gap-3">
-          <Clock size={14} strokeWidth={1.5} style={{ color: palette.accent, marginTop: "2px", flexShrink: 0 }} />
-          <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.85rem", fontWeight: 300 }}>{ev.time}</span>
-        </div>
-        <div className="flex items-start gap-3">
-          <MapPin size={14} strokeWidth={1.5} style={{ color: palette.accent, marginTop: "2px", flexShrink: 0 }} />
-          <div>
-            <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 500 }}>{ev.venue}</p>
-            <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.6, marginTop: "2px" }}>{ev.address}</p>
+      <div className="flex items-center gap-2 mb-8" style={{ borderBottom: `1px solid ${palette.border}`, paddingBottom: "1.2rem" }}>
+        <Calendar size={14} strokeWidth={1.5} style={{ color: palette.accent }} />
+        <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.85rem", fontWeight: 500, letterSpacing: "0.05em" }}>{ev.date}</span>
+      </div>
+
+      <div className="flex flex-col gap-6 flex-1">
+        {ev.items.map((item, i) => (
+          <div key={i} className="flex flex-col gap-4 relative pl-7" style={{ borderLeft: `1.5px dashed ${palette.border} `}}>
+             <div className="absolute w-2.5 h-2.5 rounded-full -left-[5.5px] top-1" style={{ background: palette.bg, border: `1.5px solid ${palette.primary}` }} />
+             
+             <div className="flex flex-col">
+               <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.95rem", fontWeight: 600 }}>{item.title}</span>
+             </div>
+             
+             <div className="flex flex-col gap-2">
+               <div className="flex items-start gap-3">
+                 <Clock size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
+                 <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 400 }}>{item.time}</span>
+               </div>
+               
+               <div className="flex items-start gap-3">
+                 <MapPin size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
+                 <div>
+                    <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 500 }}>{item.venue}</p>
+                    <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.8rem", fontWeight: 400, marginTop: "2px", lineHeight: 1.5 }}>{item.address}</p>
+                 </div>
+               </div>
+             </div>
           </div>
+        ))}
+      </div>
+      
+      {ev.note && (
+        <div className="mt-8 pt-6" style={{ borderTop: `1px solid ${palette.light}` }}>
+          <p className="playfair-font" style={{ color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>
         </div>
-      </div>
-      <div className="mt-8 pt-6" style={{ borderTop: `1px solid ${palette.light}` }}>
-        <p className="playfair-font" style={{ color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>
-      </div>
+      )}
     </motion.div>
   );
 }
@@ -122,7 +147,7 @@ export function EventDetails() {
         </motion.div>
 
         {/* Event Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 md:mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 md:mb-20">
           {t.eventDetails.events.map((ev, i) => (
             <EventCard key={ev.title} ev={ev} index={i} />
           ))}
