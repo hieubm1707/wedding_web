@@ -530,7 +530,7 @@ const vi: Translations = {
   },
   rsvp: {
     badge: "Tham Gia Cùng Chúng Tôi",
-    title: "Xác Nhận & Gửi Lời Chúc",
+    title: "Gửi Lời Chúc",
     description: "Sự hiện diện của bạn là điều quý giá nhất với chúng tôi. Hãy cho chúng tôi biết bạn có thể tham dự, và để lại lời chúc yêu thương.",
     name: "Họ và Tên *",
     namePlaceholder: "Tên của bạn",
@@ -545,8 +545,8 @@ const vi: Translations = {
     messagePlaceholder: "Chia sẻ tình yêu và lời chúc của bạn...",
     submit: "Gửi Lời Chúc",
     submitting: "Đang gửi...",
-    successTitle: (name) => `Cảm Ơn Bạn, ${name}!`,
-    successText: "Xác nhận dự tiệc và lời chúc của bạn đã được nhận. Chúng tôi rất mong được gặp bạn!",
+    successTitle: (name) => `Cảm Ơn ${name}!`,
+    successText: "Đã gửi những lời chúc tốt đẹp đến chúng mình",
     addAnother: "Thêm phản hồi",
   },
   wishes: {
@@ -565,8 +565,8 @@ const vi: Translations = {
   footer: {
     thankYou:
       '"Với trái tim tràn đầy yêu thương, chúng tôi xin cảm ơn bạn vì tình cảm, tiếng cười và sự hiện diện trong cuộc sống của chúng tôi. Bạn không chỉ là khách mời — bạn chính là những trang trong câu chuyện của chúng tôi."',
-    withLove: "Với tất cả tình yêu,",
-    madeWith: "Được tạo với yêu thương · Linh & Minh · 2026",
+    withLove: "Với tất cả yêu thương,",
+    madeWith: "Với tất cả yêu thương · Hiếu & Tiên · 2026",
   },
 };
 

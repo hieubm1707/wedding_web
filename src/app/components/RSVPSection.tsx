@@ -25,7 +25,7 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
   const formRef = useRef(null);
   const formInView = useInView(formRef, { once: true, margin: "-60px" });
 
-  const [form, setForm] = useState({ name: "", email: "", attending: "yes", guests: "1", message: "" });
+  const [form, setForm] = useState({ name: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +42,7 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
         id: Date.now().toString(),
         name: form.name,
         message: form.message,
-        attending: form.attending,
+        attending: "yes", // Hardcode for Wish interface compatibility
         timestamp: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" }),
       };
       onAddWish(newWish);
@@ -94,14 +94,19 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
           <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
             {t.rsvp.title}
           </h2>
-          <div className="flex items-center justify-center gap-4 mt-5">
-            <div className="h-px w-10" style={{ background: palette.medium }} />
-            <svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill={palette.accent} /></svg>
-            <div className="h-px w-10" style={{ background: palette.medium }} />
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <div className="h-px w-16 md:w-24" style={{ background: palette.primary, opacity: 0.5 }} />
+            <svg width="32" height="16" viewBox="0 0 32 16" fill="none">
+              <path d="M8 2 L14 8 L8 14 L2 8 Z" stroke={palette.primary} strokeWidth="1.2" strokeOpacity="0.8"/>
+              <path d="M16 2 L22 8 L16 14 L10 8 Z" stroke={palette.primary} strokeWidth="1.2" strokeOpacity="0.8"/>
+              <path d="M24 2 L30 8 L24 14 L18 8 Z" stroke={palette.primary} strokeWidth="1.2" strokeOpacity="0.8"/>
+              <path d="M16 6.5 L17.5 8 L16 9.5 L14.5 8 Z" fill={palette.primary} fillOpacity="0.8" />
+            </svg>
+            <div className="h-px w-16 md:w-24" style={{ background: palette.primary, opacity: 0.5 }} />
           </div>
-          <p className="mt-6" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.88rem", lineHeight: 1.9, fontWeight: 300, maxWidth: "480px", margin: "24px auto 0" }}>
+          {/* <p className="mt-6" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.88rem", lineHeight: 1.9, fontWeight: 300, maxWidth: "480px", margin: "24px auto 0" }}>
             {t.rsvp.description}
-          </p>
+          </p> */}
         </motion.div>
 
         {/* Form */}
@@ -113,40 +118,11 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
         >
           {!submitted ? (
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <label style={labelStyle}>{t.rsvp.name}</label>
-                  <input name="name" type="text" placeholder={t.rsvp.namePlaceholder} required value={form.name} onChange={handleChange} style={inputStyle}
-                    onFocus={(e) => (e.target.style.borderBottomColor = palette.primary)}
-                    onBlur={(e) => (e.target.style.borderBottomColor = palette.border)} />
-                </div>
-                <div>
-                  <label style={labelStyle}>{t.rsvp.email}</label>
-                  <input name="email" type="email" placeholder={t.rsvp.emailPlaceholder} value={form.email} onChange={handleChange} style={inputStyle}
-                    onFocus={(e) => (e.target.style.borderBottomColor = palette.primary)}
-                    onBlur={(e) => (e.target.style.borderBottomColor = palette.border)} />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <label style={labelStyle}>{t.rsvp.attending}</label>
-                  <select name="attending" value={form.attending} onChange={handleChange} style={{ ...inputStyle, cursor: "pointer" }}
-                    onFocus={(e) => (e.target.style.borderBottomColor = palette.primary)}
-                    onBlur={(e) => (e.target.style.borderBottomColor = palette.border)}>
-                    <option value="yes">{t.rsvp.attendingYes}</option>
-                    <option value="no">{t.rsvp.attendingNo}</option>
-                  </select>
-                </div>
-                <div>
-                  <label style={labelStyle}>{t.rsvp.guests}</label>
-                  <select name="guests" value={form.guests} onChange={handleChange} style={{ ...inputStyle, cursor: "pointer" }}
-                    onFocus={(e) => (e.target.style.borderBottomColor = palette.primary)}
-                    onBlur={(e) => (e.target.style.borderBottomColor = palette.border)}>
-                    {["1", "2", "3", "4"].map((n) => (
-                      <option key={n} value={n}>{t.rsvp.guestLabel(n)}</option>
-                    ))}
-                  </select>
-                </div>
+              <div>
+                <label style={labelStyle}>{t.rsvp.name}</label>
+                <input name="name" type="text" placeholder={t.rsvp.namePlaceholder} required value={form.name} onChange={handleChange} style={inputStyle}
+                  onFocus={(e) => (e.target.style.borderBottomColor = palette.primary)}
+                  onBlur={(e) => (e.target.style.borderBottomColor = palette.border)} />
               </div>
               <div>
                 <label style={labelStyle}>{t.rsvp.message}</label>
@@ -184,7 +160,7 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
                 {t.rsvp.successText}
               </p>
               <button
-                onClick={() => { setSubmitted(false); setForm({ name: "", email: "", attending: "yes", guests: "1", message: "" }); }}
+                onClick={() => { setSubmitted(false); setForm({ name: "", message: "" }); }}
                 className="mt-8"
                 style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500, background: "none", border: "none", cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "4px" }}
               >

@@ -30,7 +30,7 @@ export function WeddingFooter() {
     { label: t.nav.location, href: "#location" },
   ];
 
-  const dividerColor = `${palette.primaryDim}60`;
+  const dividerColor = `${palette.textLight}60`;
   const leafColor = palette.textOnDark;
   const mutedTextColor = `${palette.textLight}90`;
 
@@ -53,40 +53,37 @@ export function WeddingFooter() {
             className="text-center"
           >
             {/* Leaf icon */}
-            <svg width="24" height="28" viewBox="0 0 24 28" fill="none" className="mx-auto mb-6">
+            {/* <svg width="24" height="28" viewBox="0 0 24 28" fill="none" className="mx-auto mb-6">
               <path d="M12 2 C12 2 4 8 4 16 C4 21 7.6 25 12 25 C16.4 25 20 21 20 16 C20 8 12 2 12 2Z" stroke={leafColor} strokeWidth="1.2" fill="none" />
               <path d="M12 25 L12 8" stroke={leafColor} strokeWidth="1.2" strokeLinecap="round" />
               <path d="M12 16 Q8 14 6 10" stroke={leafColor} strokeWidth="0.8" strokeLinecap="round" />
               <path d="M12 13 Q16 11 18 7" stroke={leafColor} strokeWidth="0.8" strokeLinecap="round" />
-            </svg>
+            </svg> */}
 
             {/* Names */}
-            <h2 className="mb-2 playfair-font" style={{ color: palette.textLight, fontSize: "clamp(2.5rem, 7vw, 5rem)", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.01em" }}>
-              Linh &amp; Minh
+            <h2 className="mt-4 mb-8 playfair-font" style={{ color: palette.textLight, fontSize: "clamp(2.5rem, 7vw, 5rem)", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.01em" }}>
+              Hiếu &amp; Tiên
             </h2>
-            <p className="mb-8" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.7rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
-              20 · September · 2026
-            </p>
 
             <FloralDivider color={dividerColor} />
 
             {/* Thank you */}
-            <div className="mt-10 mb-10 max-w-xl mx-auto">
+            <div className="mt-8 mb-8 max-w-xl mx-auto">
               <p className="playfair-font" style={{ color: palette.textLight, fontSize: "clamp(1rem, 2.5vw, 1.25rem)", lineHeight: 1.9, fontStyle: "italic", fontWeight: 400, opacity: 0.92 }}>
                 {t.footer.thankYou}
               </p>
-              <p className="mt-6" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.8 }}>
+              {/* <p className="mt-6" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.8 }}>
                 {t.footer.withLove}
               </p>
               <p className="mt-2 playfair-font" style={{ color: palette.textLight, fontSize: "1.2rem", fontStyle: "italic" }}>
-                Linh &amp; Minh
-              </p>
+                Hiếu &amp; Tiên
+              </p> */}
             </div>
 
             <FloralDivider color={dividerColor} />
 
             {/* Nav */}
-            <nav className="flex flex-wrap justify-center gap-4 md:gap-8 mt-10">
+            {/* <nav className="flex flex-wrap justify-center gap-4 md:gap-8 mt-10">
               {navLinks.map((link) => (
                 <a key={link.label} href={link.href}
                   style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.65rem", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 500, textDecoration: "none", transition: "color 0.2s" }}
@@ -96,10 +93,10 @@ export function WeddingFooter() {
                   {link.label}
                 </a>
               ))}
-            </nav>
+            </nav> */}
 
             {/* Contact */}
-            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8">
+            {/* <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8">
               <a href="mailto:linhminh2026@gmail.com" className="flex items-center justify-center gap-2"
                 style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
                 <Mail size={14} strokeWidth={1.5} />
@@ -110,7 +107,7 @@ export function WeddingFooter() {
                 <Phone size={14} strokeWidth={1.5} />
                 +84 (0) 90 123 4567
               </a>
-            </div>
+            </div> */}
 
             {/* Bottom */}
             <div className="mt-12 pt-6 flex items-center justify-center gap-2" style={{ borderTop: `1px solid ${palette.primaryDim}30` }}>
