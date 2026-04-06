@@ -6,14 +6,17 @@ import { X, ZoomIn } from "lucide-react";
 import { useTheme, useLang } from "../contexts/AppContext";
 
 const galleryImages = [
-  { src: "https://images.unsplash.com/photo-1767986012138-4893f40932d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800", alt: "Wedding ceremony" },
-  { src: "https://images.unsplash.com/photo-1569842587396-f420b6279842?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800", alt: "Bridal bouquet" },
-  { src: "https://images.unsplash.com/photo-1767050179711-a8401bd02be9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800", alt: "Reception table" },
-  { src: "https://images.unsplash.com/photo-1765871905755-416de3eba6be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800", alt: "Garden arch" },
-  { src: "https://images.unsplash.com/photo-1631883971900-fa9c798aee92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800", alt: "Wedding rings" },
-  { src: "https://images.unsplash.com/photo-1771305145464-01a595836294?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800", alt: "Wedding cake" },
-  { src: "https://images.unsplash.com/photo-1634040616805-bfe7066251ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800", alt: "First dance" },
-  { src: "https://images.unsplash.com/photo-1766735328604-8a53df42203f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800", alt: "Couple" },
+  // { src: "./images/collection_001.jpg", alt: "Couple" },
+  { src: "./images/collection_006.jpg", alt: "Couple" },
+  { src: "./images/collection_011.jpg", alt: "Couple" },
+  { src: "./images/collection_004.jpg", alt: "Couple" },
+  { src: "./images/collection_010.jpg", alt: "Couple" },
+  { src: "./images/collection_013.jpg", alt: "Couple" },
+  // { src: "./images/collection_007.jpg", alt: "Couple" },
+  { src: "./images/collection_012.jpg", alt: "Couple" },
+  { src: "./images/collection_014.jpg", alt: "Couple" },
+  { src: "./images/collection_009.jpg", alt: "Couple" },
+  { src: "./images/collection_008.jpg", alt: "Couple" },
 ];
 
 function GalleryImage({ img, index, onOpen }: { img: typeof galleryImages[0]; index: number; onOpen: (src: string) => void }) {
@@ -58,7 +61,7 @@ export function PhotoGallery() {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   return (
-    <section id="gallery" className="py-24 md:py-36 px-6" style={{ background: palette.bg1 }}>
+    <section id="gallery" className="py-8 md:py-12 px-6" style={{ background: palette.bg1 }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div

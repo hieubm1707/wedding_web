@@ -525,8 +525,8 @@ const vi: Translations = {
     countdownSub: "30 Tháng 5 năm 2026 · TP Hồ Chí Minh",
   },
   gallery: {
-    badge: "Khoảnh Khắc Lưu Giữ",
-    title: "Bộ Sưu Tập Ảnh",
+    badge: "Khoảnh Khắc Cùng Nhau",
+    title: "Bộ Sưu Tập",
   },
   rsvp: {
     badge: "Tham Gia Cùng Chúng Tôi",
