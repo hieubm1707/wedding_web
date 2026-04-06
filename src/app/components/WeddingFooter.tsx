@@ -37,7 +37,7 @@ export function WeddingFooter() {
   return (
     <footer style={{ background: palette.footerBg }}>
       {/* Wave transition */}
-      <div style={{ background: palette.bg, lineHeight: 0 }}>
+      <div style={{ background: palette.bg1, lineHeight: 0 }}>
         <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block", width: "100%" }}>
           <path d="M0 60 L0 30 Q360 0 720 30 Q1080 60 1440 30 L1440 60 Z" fill={palette.footerBg} />
         </svg>
@@ -54,10 +54,10 @@ export function WeddingFooter() {
           >
             {/* Leaf icon */}
             <svg width="24" height="28" viewBox="0 0 24 28" fill="none" className="mx-auto mb-6">
-              <path d="M12 2 C12 2 4 8 4 16 C4 21 7.6 25 12 25 C16.4 25 20 21 20 16 C20 8 12 2 12 2Z" stroke={leafColor} strokeWidth="1.2" fill="none"/>
-              <path d="M12 25 L12 8" stroke={leafColor} strokeWidth="1.2" strokeLinecap="round"/>
-              <path d="M12 16 Q8 14 6 10" stroke={leafColor} strokeWidth="0.8" strokeLinecap="round"/>
-              <path d="M12 13 Q16 11 18 7" stroke={leafColor} strokeWidth="0.8" strokeLinecap="round"/>
+              <path d="M12 2 C12 2 4 8 4 16 C4 21 7.6 25 12 25 C16.4 25 20 21 20 16 C20 8 12 2 12 2Z" stroke={leafColor} strokeWidth="1.2" fill="none" />
+              <path d="M12 25 L12 8" stroke={leafColor} strokeWidth="1.2" strokeLinecap="round" />
+              <path d="M12 16 Q8 14 6 10" stroke={leafColor} strokeWidth="0.8" strokeLinecap="round" />
+              <path d="M12 13 Q16 11 18 7" stroke={leafColor} strokeWidth="0.8" strokeLinecap="round" />
             </svg>
 
             {/* Names */}

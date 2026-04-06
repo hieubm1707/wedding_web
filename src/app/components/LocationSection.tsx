@@ -29,7 +29,7 @@ export function LocationSection() {
   ];
 
   return (
-    <section id="location" className="py-24 md:py-36 px-6" style={{ background: palette.bg }}>
+    <section id="location" className="py-24 md:py-36 px-6" style={{ background: palette.bg1 }}>
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div

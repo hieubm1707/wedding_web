@@ -24,7 +24,7 @@ function WeddingApp() {
   const [wishes, setWishes] = useState<Wish[]>([]);
 
   const handleScrollDown = () => {
-    const el = document.getElementById("our-story");
+    const el = document.getElementById("event-details");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -34,9 +34,9 @@ function WeddingApp() {
 
   return (
     <div style={{ fontFamily: "'Montserrat', sans-serif" }}>
-      <NavBar />
+      {/* <NavBar /> */}
       <HeroSection onScrollDown={handleScrollDown} />
-      <OurStory />
+      {/* <OurStory /> */}
       <EventDetails />
       <PhotoGallery />
       <RSVPSection wishes={wishes} onAddWish={handleAddWish} />

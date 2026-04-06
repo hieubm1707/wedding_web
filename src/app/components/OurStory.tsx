@@ -5,10 +5,10 @@ import { useTheme, useLang } from "../contexts/AppContext";
 
 const LeafIcon = ({ color }: { color: string }) => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-    <path d="M12 2 C12 2 4 7 4 14 C4 18.4 7.6 22 12 22 C16.4 22 20 18.4 20 14 C20 7 12 2 12 2Z" stroke={color} strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M12 22 L12 8" stroke={color} strokeWidth="1.2" strokeLinecap="round"/>
-    <path d="M12 14 Q8 12 6 9" stroke={color} strokeWidth="1" strokeLinecap="round"/>
-    <path d="M12 12 Q16 10 18 7" stroke={color} strokeWidth="1" strokeLinecap="round"/>
+    <path d="M12 2 C12 2 4 7 4 14 C4 18.4 7.6 22 12 22 C16.4 22 20 18.4 20 14 C20 7 12 2 12 2Z" stroke={color} strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12 22 L12 8" stroke={color} strokeWidth="1.2" strokeLinecap="round" />
+    <path d="M12 14 Q8 12 6 9" stroke={color} strokeWidth="1" strokeLinecap="round" />
+    <path d="M12 12 Q16 10 18 7" stroke={color} strokeWidth="1" strokeLinecap="round" />
   </svg>
 );
 
@@ -122,7 +122,7 @@ export function OurStory() {
   const aligns: ("left" | "right")[] = ["left", "right", "left", "right"];
 
   return (
-    <section id="our-story" className="py-24 md:py-36 px-6" style={{ background: palette.bg }}>
+    <section id="our-story" className="py-24 md:py-36 px-6" style={{ background: palette.bg1 }}>
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
@@ -132,7 +132,7 @@ export function OurStory() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20 md:mb-28"
         >
-          <p
+          {/* <p
             className="mb-4"
             style={{
               fontFamily: "'Montserrat', sans-serif",
@@ -144,7 +144,7 @@ export function OurStory() {
             }}
           >
             {t.ourStory.badge}
-          </p>
+          </p> */}
           <h2
             style={{
               fontFamily: '"Mussica Swash", "Playfair Display", serif',

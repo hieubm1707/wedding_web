@@ -58,7 +58,7 @@ export function PhotoGallery() {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   return (
-    <section id="gallery" className="py-24 md:py-36 px-6" style={{ background: palette.bg }}>
+    <section id="gallery" className="py-24 md:py-36 px-6" style={{ background: palette.bg1 }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div

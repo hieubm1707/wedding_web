@@ -133,6 +133,32 @@ export const palettes: ColorPalette[] = [
     shadowPrimary: "rgba(201,124,99,0.13)",
     navScrollBg: "rgba(255,249,245,0.96)",
   },
+  {
+    id: "savvy_red",
+    name: "Savvy Red",
+    nameVi: "Đỏ Savvy",
+    swatches: ["#EDD4BC", "#F7765E", "#8B1E28", "#74171E"],
+    bg: "#FFF9F6",
+    bg1: "#FDF0E7",
+    bg2: "#FBE2D0",
+    light: "#EDD4BC",
+    medium: "#FAAD9D",
+    accent: "#F7765E",
+    primary: "#8B1E28",
+    primaryDim: "#AF2B35",
+    text: "#2D1215",
+    textMuted: "#6A4A4D",
+    textLight: "#FFF9F6",
+    textOnDark: "#EDD4BC",
+    border: "#FBE2D0",
+    cardBg: "#FFF9F6",
+    footerBg: "#8B1E28",
+    countdownBg: "#8B1E28",
+    heroGradient: "linear-gradient(to bottom, rgba(255,249,246,0.55) 0%, rgba(247,118,94,0.30) 50%, rgba(255,249,246,0.70) 100%)",
+    shadowAccent: "rgba(247,118,94,0.22)",
+    shadowPrimary: "rgba(139,30,40,0.13)",
+    navScrollBg: "rgba(255,249,246,0.96)",
+  },
 ];
 
 // ─── Translations ────────────────────────────────────────────────────────────
@@ -150,6 +176,7 @@ export interface Translations {
   };
   hero: {
     badge: string;
+    badgeTitle: string;
     date: string;
     quote: string;
     scroll: string;
@@ -229,6 +256,7 @@ const en: Translations = {
   },
   hero: {
     badge: "We're Getting Married",
+    badgeTitle: "Wedding",
     date: "20 · September · 2026",
     quote: '"What God has joined together, let no one separate.\n(Mt 19:6)"',
     scroll: "Scroll",
@@ -348,7 +376,8 @@ const vi: Translations = {
     rsvpNow: "RSVP Ngay",
   },
   hero: {
-    badge: "Chúng Tôi Sắp Kết Hôn",
+    badge: "Trân trọng thông báo",
+    badgeTitle: "Hôn lễ",
     date: "20 · Tháng Chín · 2026",
     quote: '"Sự gì Thiên Chúa đã kết hợp, loài người không được phân ly.\n(Mt 19:6)"',
     scroll: "Cuộn xuống",
@@ -380,8 +409,8 @@ const vi: Translations = {
     ],
   },
   eventDetails: {
-    badge: "Lưu Ngày Này",
-    title: "Chi Tiết Sự Kiện",
+    badge: "Save the date",
+    title: "Hôn lễ và Tiệc cưới",
     events: [
       {
         icon: "flower",
@@ -438,7 +467,7 @@ const vi: Translations = {
   },
   wishes: {
     badge: "Những Lời Chúc Từ Trái Tim",
-    title: "Lời Chúc & Yêu Thương",
+    title: "Lời Chúc Yêu Thương",
     attendingBadge: "Tham dự",
   },
   location: {
@@ -467,7 +496,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType>({
   palette: palettes[0],
-  setPaletteId: () => {},
+  setPaletteId: () => { },
 });
 
 // ─── Language Context ────────────────────────────────────────────────────────
@@ -479,14 +508,14 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType>({
   lang: "en",
-  setLang: () => {},
+  setLang: () => { },
   t: en,
 });
 
 // ─── Provider ────────────────────────────────────────────────────────────────
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [paletteId, setPaletteId] = useState("green");
-  const [lang, setLang] = useState<Language>("en");
+  const [paletteId, setPaletteId] = useState("savvy_red");
+  const [lang, setLang] = useState<Language>("vi");
 
   const palette = palettes.find((p) => p.id === paletteId) ?? palettes[0];
   const t = translationsMap[lang];

@@ -16,8 +16,7 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1765292783377-e2b769632228?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920')",
+          backgroundImage: "url('./images/hero_image_002.jpg')"
         }}
       />
 
@@ -29,19 +28,29 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
       <div className="relative z-10 text-center px-6 flex flex-col items-center gap-6">
         {/* Badge */}
         <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="flex items-center gap-4"
+          className="flex items-center gap-4 md:gap-8 mb-20 border-none"
         >
-          <div className="h-px w-16 md:w-24" style={{ background: palette.accent }} />
-          <span
-            className="text-xs tracking-[0.35em] uppercase"
-            style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontWeight: 500 }}
-          >
-            {t.hero.badge}
-          </span>
-          <div className="h-px w-16 md:w-24" style={{ background: palette.accent }} />
+          <div className="h-[1px] w-12 md:w-24 opacity-60" style={{ background: `linear-gradient(90deg, transparent, ${palette.primary})` }} />
+
+          <div className="flex flex-col items-center gap-1">
+            {/* <span
+              className="text-[0.65rem] md:text-[0.7rem] tracking-[0.35em] uppercase"
+              style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontWeight: 500 }}
+            >
+              {t.hero.badge}
+            </span> */}
+            <h2
+              className="playfair-font"
+              style={{ color: palette.primary, fontSize: "clamp(3rem, 7vw, 4.5rem)", lineHeight: 1.1, fontWeight: 400 }}
+            >
+              {t.hero.badgeTitle}
+            </h2>
+          </div>
+
+          <div className="h-[1px] w-12 md:w-24 opacity-60" style={{ background: `linear-gradient(270deg, transparent, ${palette.primary})` }} />
         </motion.div>
 
         {/* Names */}
@@ -65,13 +74,13 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
           </h1>
           <span
             style={{
-              color: palette.accent,
+              color: palette.text,
               fontSize: "clamp(1.5rem, 4vw, 3rem)",
               fontStyle: "italic",
               lineHeight: 1.2,
               fontWeight: 400,
             }}
-            className="playfair-font"
+            className="playfair-font mt-8 mb-4"
           >
             &amp;
           </span>
@@ -90,7 +99,7 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
         </motion.div>
 
         {/* Date */}
-        <motion.p
+        {/* <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.9 }}
@@ -104,14 +113,14 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
           className="uppercase"
         >
           {t.hero.date}
-        </motion.p>
+        </motion.p> */}
 
         {/* Quote */}
         <motion.blockquote
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.1 }}
-          className="max-w-md playfair-font"
+          className="max-w-md playfair-font mt-12"
           style={{
             color: palette.textMuted,
             fontSize: "clamp(0.9rem, 2vw, 1.05rem)",
@@ -125,7 +134,7 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
         </motion.blockquote>
 
         {/* Divider dot */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.3 }}
@@ -137,7 +146,7 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
             <circle cx="6" cy="6" r="5" stroke={palette.accent} strokeWidth="0.8" />
           </svg>
           <div className="h-px w-8" style={{ background: palette.medium }} />
-        </motion.div>
+        </motion.div> */}
       </div>
 
       {/* Scroll indicator */}
@@ -149,7 +158,7 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer border-none bg-transparent"
         style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary }}
       >
-        <span className="text-xs tracking-[0.2em] uppercase" style={{ fontSize: "0.63rem" }}>{t.hero.scroll}</span>
+        {/* <span className="text-xs tracking-[0.2em] uppercase" style={{ fontSize: "0.63rem" }}>{t.hero.scroll}</span> */}
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
