@@ -4,26 +4,52 @@ import { useRef, useState, useEffect } from "react";
 import { MapPin, Clock, Calendar, Flower, Church, PartyPopper, Heart } from "lucide-react";
 import { useTheme, useLang } from "../contexts/AppContext";
 
-const WEDDING_DATE = new Date("2026-05-30T17:00:00");
+const WEDDING_EVENTS = [
+  new Date("2026-04-25T07:30:00+07:00"), // Lễ Vu Quy
+  new Date("2026-05-02T09:00:00+07:00"), // Lễ Thành Hôn
+  new Date("2026-05-30T18:00:00+07:00"), // Tiệc báo hỷ
+];
 
-function useCountdown(targetDate: Date) {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+function useMultiCountdown(eventDates: Date[]) {
+  const getNextEvent = () => {
+    const now = new Date().getTime();
+    let nextIdx = eventDates.findIndex((d) => d.getTime() > now);
+    if (nextIdx === -1) nextIdx = eventDates.length - 1;
+    return nextIdx;
+  };
+
+  const [state, setState] = useState({ 
+    timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 }, 
+    targetIndex: 0 
+  });
+
   useEffect(() => {
     const calc = () => {
-      const diff = targetDate.getTime() - new Date().getTime();
-      if (diff <= 0) { setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
-      setTimeLeft({
-        days: Math.floor(diff / 86400000),
-        hours: Math.floor((diff % 86400000) / 3600000),
-        minutes: Math.floor((diff % 3600000) / 60000),
-        seconds: Math.floor((diff % 60000) / 1000),
+      const now = new Date().getTime();
+      const idx = getNextEvent();
+      const diff = eventDates[idx].getTime() - now;
+      
+      if (diff <= 0) {
+        setState({ timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 }, targetIndex: idx });
+        return;
+      }
+      
+      setState({
+        timeLeft: {
+          days: Math.floor(diff / 86400000),
+          hours: Math.floor((diff % 86400000) / 3600000),
+          minutes: Math.floor((diff % 3600000) / 60000),
+          seconds: Math.floor((diff % 60000) / 1000),
+        },
+        targetIndex: idx
       });
     };
     calc();
     const id = setInterval(calc, 1000);
     return () => clearInterval(id);
-  }, [targetDate]);
-  return timeLeft;
+  }, [eventDates]);
+
+  return state;
 }
 
 function CountdownBlock({ value, label }: { value: number; label: string }) {
@@ -112,7 +138,7 @@ function EventCard({ ev, index }: { ev: { icon: string; title: string; date: str
 export function EventDetails() {
   const { palette } = useTheme();
   const { t } = useLang();
-  const countdown = useCountdown(WEDDING_DATE);
+  const { timeLeft: countdown, targetIndex } = useMultiCountdown(WEDDING_EVENTS);
   const titleRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
   const countdownRef = useRef(null);
@@ -176,8 +202,8 @@ export function EventDetails() {
           </div>
           <div className="flex items-center justify-center gap-3 mt-10">
             <div className="h-px w-8" style={{ background: `${palette.primaryDim}80` }} />
-            <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.65rem", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 500 }}>
-              {t.eventDetails.countdownSub}
+            <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 500 }}>
+              {t.eventDetails.events[targetIndex]?.title} · {t.eventDetails.events[targetIndex]?.date}
             </p>
             <div className="h-px w-8" style={{ background: `${palette.primaryDim}80` }} />
           </div>
