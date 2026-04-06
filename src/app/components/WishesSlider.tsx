@@ -23,7 +23,7 @@ const defaultWishes: Wish[] = [
 function QuoteIcon({ color }: { color: string }) {
   return (
     <svg width="22" height="16" viewBox="0 0 24 18" fill="none">
-      <path d="M0 18V10.8C0 7.2 1.2 4.2 3.6 1.8L5.4 0C6.6 2.4 7.2 4.2 7.2 5.4C5.6 6.2 4.8 7.8 4.8 10.2V12H9.6V18H0ZM14.4 18V10.8C14.4 7.2 15.6 4.2 18 1.8L19.8 0C21 2.4 21.6 4.2 21.6 5.4C20 6.2 19.2 7.8 19.2 10.2V12H24V18H14.4Z" fill={color}/>
+      <path d="M0 18V10.8C0 7.2 1.2 4.2 3.6 1.8L5.4 0C6.6 2.4 7.2 4.2 7.2 5.4C5.6 6.2 4.8 7.8 4.8 10.2V12H9.6V18H0ZM14.4 18V10.8C14.4 7.2 15.6 4.2 18 1.8L19.8 0C21 2.4 21.6 4.2 21.6 5.4C20 6.2 19.2 7.8 19.2 10.2V12H24V18H14.4Z" fill={color} />
     </svg>
   );
 }
@@ -75,7 +75,7 @@ export function WishesSlider({ wishes: extraWishes }: WishesSliderProps) {
   const getIndex = (offset: number) => (current + offset + allWishes.length) % allWishes.length;
 
   return (
-    <section id="wishes" className="py-24 md:py-36 px-6 overflow-hidden" style={{ background: palette.bg2 }}>
+    <section id="wishes" className="py-24 md:py-36 px-6 overflow-hidden" style={{ background: palette.bg1 }}>
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div

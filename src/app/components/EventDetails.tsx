@@ -18,9 +18,9 @@ function useMultiCountdown(eventDates: Date[]) {
     return nextIdx;
   };
 
-  const [state, setState] = useState({ 
-    timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 }, 
-    targetIndex: 0 
+  const [state, setState] = useState({
+    timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 },
+    targetIndex: 0
   });
 
   useEffect(() => {
@@ -28,12 +28,12 @@ function useMultiCountdown(eventDates: Date[]) {
       const now = new Date().getTime();
       const idx = getNextEvent();
       const diff = eventDates[idx].getTime() - now;
-      
+
       if (diff <= 0) {
         setState({ timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 }, targetIndex: idx });
         return;
       }
-      
+
       setState({
         timeLeft: {
           days: Math.floor(diff / 86400000),
@@ -101,31 +101,31 @@ function EventCard({ ev, index }: { ev: { icon: string; title: string; date: str
 
       <div className="flex flex-col gap-6 flex-1">
         {ev.items.map((item, i) => (
-          <div key={i} className="flex flex-col gap-4 relative pl-7" style={{ borderLeft: `1.5px dashed ${palette.border} `}}>
-             <div className="absolute w-2.5 h-2.5 rounded-full -left-[5.5px] top-1" style={{ background: palette.bg, border: `1.5px solid ${palette.primary}` }} />
-             
-             <div className="flex flex-col">
-               <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.95rem", fontWeight: 600 }}>{item.title}</span>
-             </div>
-             
-             <div className="flex flex-col gap-2">
-               <div className="flex items-start gap-3">
-                 <Clock size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
-                 <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 400 }}>{item.time}</span>
-               </div>
-               
-               <div className="flex items-start gap-3">
-                 <MapPin size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
-                 <div>
-                    <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 500 }}>{item.venue}</p>
-                    <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.8rem", fontWeight: 400, marginTop: "2px", lineHeight: 1.5 }}>{item.address}</p>
-                 </div>
-               </div>
-             </div>
+          <div key={i} className="flex flex-col gap-4 relative pl-7" style={{ borderLeft: `1.5px dashed ${palette.border} ` }}>
+            <div className="absolute w-2.5 h-2.5 rounded-full -left-[5.5px] top-1" style={{ background: palette.bg, border: `1.5px solid ${palette.primary}` }} />
+
+            <div className="flex flex-col">
+              <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.95rem", fontWeight: 600 }}>{item.title}</span>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <div className="flex items-start gap-3">
+                <Clock size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
+                <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 400 }}>{item.time}</span>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <MapPin size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
+                <div>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 500 }}>{item.venue}</p>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.8rem", fontWeight: 400, marginTop: "2px", lineHeight: 1.5 }}>{item.address}</p>
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
-      
+
       {ev.note && (
         <div className="mt-8 pt-6" style={{ borderTop: `1px solid ${palette.light}` }}>
           <p className="playfair-font" style={{ color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>

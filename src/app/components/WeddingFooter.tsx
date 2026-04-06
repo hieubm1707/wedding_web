@@ -96,18 +96,29 @@ export function WeddingFooter() {
             </nav> */}
 
             {/* Contact */}
-            {/* <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8">
-              <a href="mailto:linhminh2026@gmail.com" className="flex items-center justify-center gap-2"
+            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8">
+              <a href="mailto:hieubm1707@gmail.com" className="flex items-center justify-center gap-2"
                 style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
                 <Mail size={14} strokeWidth={1.5} />
-                linhminh2026@gmail.com
+                hieubm1707@gmail.com
               </a>
               <a href="tel:+84901234567" className="flex items-center justify-center gap-2"
                 style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
                 <Phone size={14} strokeWidth={1.5} />
-                +84 (0) 90 123 4567
+                033 736 0984
               </a>
-            </div> */}
+              <span className="playfair-font" style={{ color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>&amp;</span>
+              <a href="mailto:tientt1304@gmail.com" className="flex items-center justify-center gap-2"
+                style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
+                <Mail size={14} strokeWidth={1.5} />
+                tientt1304@gmail.com
+              </a>
+              <a href="tel:+84901234567" className="flex items-center justify-center gap-2"
+                style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
+                <Phone size={14} strokeWidth={1.5} />
+                034 545 0642
+              </a>
+            </div>
 
             {/* Bottom */}
             <div className="mt-12 pt-6 flex items-center justify-center gap-2" style={{ borderTop: `1px solid ${palette.primaryDim}30` }}>

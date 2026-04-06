@@ -41,7 +41,7 @@ function WeddingApp() {
       <PhotoGallery />
       <RSVPSection wishes={wishes} onAddWish={handleAddWish} />
       <WishesSlider wishes={wishes} />
-      <LocationSection />
+      {/* <LocationSection /> */}
       <WeddingFooter />
       <SettingsPanel />
     </div>

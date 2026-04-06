@@ -242,6 +242,20 @@ export interface Translations {
     reception: string;
     getDirections: string;
     venueAddress: string;
+    contactTitle: string;
+    groomTitle: string;
+    brideTitle: string;
+    giftTitle: string;
+    giftDesc: string;
+    qrBtn: string;
+    qrModalTitle: string;
+    qrModalDesc: string;
+    qrTabGroom: string;
+    qrTabBride: string;
+    bankName: string;
+    accNumber: string;
+    accName: string;
+    copyAcc: string;
   };
   footer: {
     thankYou: string;
@@ -401,6 +415,20 @@ const en: Translations = {
     reception: "Reception",
     getDirections: "Get Directions",
     venueAddress: "Hội An Ancient Town, Quảng Nam, Vietnam",
+    contactTitle: "Contact Information",
+    groomTitle: "Groom (Minh Hieu)",
+    brideTitle: "Bride (Thao Tien)",
+    giftTitle: "Wedding Gift",
+    giftDesc: "Your presence is the most valuable gift. If you cannot attend, you may send your blessings via bank transfer below.",
+    qrBtn: "View QR Code",
+    qrModalTitle: "Wedding Gift Box",
+    qrModalDesc: "Thank you for sending your blessings to the couple!",
+    qrTabGroom: "Groom's Side",
+    qrTabBride: "Bride's Side",
+    bankName: "Bank",
+    accNumber: "Account Number",
+    accName: "Account Holder",
+    copyAcc: "Copy account number",
   },
   footer: {
     thankYou:
@@ -561,6 +589,20 @@ const vi: Translations = {
     reception: "Tiệc Cưới",
     getDirections: "Chỉ Đường",
     venueAddress: "Phố Cổ Hội An, Quảng Nam, Việt Nam",
+    contactTitle: "Thông Tin Liên Hệ",
+    groomTitle: "Chú Rể (Minh Hiếu)",
+    brideTitle: "Cô Dâu (Thảo Tiên)",
+    giftTitle: "Mừng Cưới",
+    giftDesc: "Sự hiện diện của quý vị là món quà vô giá đối với hai gia đình. Nếu không thể đến tham dự và chia vui, quý vị có thể gửi lời chúc phúc cùng một phần quà nhỏ qua hình thức chuyển khoản dưới đây.",
+    qrBtn: "Xem Mã QR",
+    qrModalTitle: "Hộp Mừng Cưới",
+    qrModalDesc: "Chân thành cảm ơn bạn đã chúc phúc tới hai vợ chồng!",
+    qrTabGroom: "Nhà Trai",
+    qrTabBride: "Nhà Gái",
+    bankName: "Ngân hàng",
+    accNumber: "Số tài khoản",
+    accName: "Chủ Tài khoản",
+    copyAcc: "Copy số tài khoản",
   },
   footer: {
     thankYou:
