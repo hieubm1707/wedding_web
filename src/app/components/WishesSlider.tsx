@@ -175,60 +175,60 @@ export function WishesSlider({ wishes: extraWishes }: WishesSliderProps) {
 
   const visibleWishes = allWishes.slice(0, visibleCount);
 
-  return (
-    <section id="wishes" className="py-24 md:py-36 px-6" style={{ background: palette.bg1 }}>
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <motion.div
-          ref={titleRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-14 md:mb-16"
-        >
-          <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
-            {t.wishes.badge}
-          </p>
-          <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
-            {t.wishes.title}
-          </h2>
-          <div className="flex items-center justify-center gap-4 mt-5">
-            <div className="h-px w-10" style={{ background: palette.medium }} />
-            <svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill={palette.primary} /></svg>
-            <div className="h-px w-10" style={{ background: palette.medium }} />
-          </div>
-        </motion.div>
+  if (allWishes.length === 0) return null;
 
-        {/* Masonry Grid */}
-        <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 580: 2, 900: 3, 1280: 4, 1600: 5 }}>
-          <Masonry gutter="14px">
-            {visibleWishes.map((wish, index) => (
-              <WishCard
-                key={wish.id}
-                wish={wish}
-                index={index}
-                onExpand={() => setSelectedWish(wish)}
+  return (
+    <section id="wishes" className="py-24 md:py-36 px-4" style={{ background: palette.bg1 }}>
+      {/* Header — centered, constrained width */}
+      <motion.div
+        ref={titleRef}
+        initial={{ opacity: 0, y: 30 }}
+        animate={titleInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        className="text-center mb-14 md:mb-16 max-w-xl mx-auto"
+      >
+        <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
+          {t.wishes.badge}
+        </p>
+        <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
+          {t.wishes.title}
+        </h2>
+        <div className="flex items-center justify-center gap-4 mt-5">
+          <div className="h-px w-10" style={{ background: palette.medium }} />
+          <svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill={palette.primary} /></svg>
+          <div className="h-px w-10" style={{ background: palette.medium }} />
+        </div>
+      </motion.div>
+
+      {/* Masonry Grid — full width */}
+      <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 580: 2, 900: 3, 1280: 4, 1600: 5 }}>
+        <Masonry gutter="12px">
+          {visibleWishes.map((wish, index) => (
+            <WishCard
+              key={wish.id}
+              wish={wish}
+              index={index}
+              onExpand={() => setSelectedWish(wish)}
+            />
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
+
+      {/* Sentinel — triggers loading next batch when scrolled into view */}
+      {hasMore && (
+        <div ref={sentinelRef} className="flex justify-center pt-10">
+          <div className="flex gap-1.5">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
+                style={{ width: "5px", height: "5px", borderRadius: "50%", background: palette.medium }}
               />
             ))}
-          </Masonry>
-        </ResponsiveMasonry>
-
-        {/* Sentinel — triggers loading next batch when scrolled into view */}
-        {hasMore && (
-          <div ref={sentinelRef} className="flex justify-center pt-10">
-            <div className="flex gap-1.5">
-              {[0, 1, 2].map((i) => (
-                <motion.div
-                  key={i}
-                  animate={{ opacity: [0.3, 1, 0.3] }}
-                  transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
-                  style={{ width: "5px", height: "5px", borderRadius: "50%", background: palette.medium }}
-                />
-              ))}
-            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Modal */}
       <AnimatePresence>
