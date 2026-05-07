@@ -574,7 +574,7 @@ const vi: Translations = {
     submit: "Gửi Lời Chúc",
     submitting: "Đang gửi...",
     successTitle: (name) => `Cảm Ơn ${name}!`,
-    successText: "Đã gửi những lời chúc tốt đẹp đến chúng mình",
+    successText: "{{our}} cảm ơn {{you}} vì những lời chúc tốt đẹp mà {{you}} đã gửi tặng cho {{our}}.",
     addAnother: "Thêm phản hồi",
   },
   wishes: {
@@ -606,13 +606,45 @@ const vi: Translations = {
   },
   footer: {
     thankYou:
-      '"Với trái tim tràn đầy yêu thương, chúng tôi xin cảm ơn bạn vì tình cảm, tiếng cười và sự hiện diện trong cuộc sống của chúng tôi. Bạn không chỉ là khách mời — bạn chính là những trang trong câu chuyện của chúng tôi."',
+      '"Với trái tim tràn đầy yêu thương, {{our}} xin cảm ơn {{you}} vì tình cảm, tiếng cười và sự hiện diện trong cuộc sống của {{our}}. {{you}} không chỉ là khách mời — {{you}} chính là những trang trong câu chuyện của {{our}}."',
     withLove: "Với tất cả yêu thương,",
     madeWith: "Với tất cả yêu thương · Hiếu & Tiên · 2026",
   },
 };
 
 export const translationsMap: Record<Language, Translations> = { en, vi };
+
+// ─── Pronoun Detection ──────────────────────────────────────────────────────
+export function detectViPronoun(name: string): { our: string; you: string } {
+  const s = name.trim().toLowerCase();
+  if (/^cô\/chú(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Cô/Chú" };
+  if (/^anh\/chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Anh/Chị" };
+  if (/^chú(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Chú" };
+  if (/^cô(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Cô" };
+  if (/^bác(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Bác" };
+  if (/^anh(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Anh" };
+  if (/^chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Chị" };
+  if (/^bạn(?=\s|$)/.test(s)) return { our: "Chúng mình", you: "Bạn" };
+  return { our: "Chúng tôi", you: "Bạn" };
+}
+
+export function resolveThankYou(template: string, name?: string): string {
+  const { our, you } = name ? detectViPronoun(name) : { our: "Chúng tôi", you: "Bạn" };
+  return template.replace(/\{\{our\}\}/g, our).replace(/\{\{you\}\}/g, you);
+}
+
+// ─── Pronoun Context ─────────────────────────────────────────────────────────
+interface PronounContextType {
+  pronoun: { our: string; you: string };
+  setPronounFromName: (name: string) => void;
+}
+
+const PronounContext = createContext<PronounContextType>({
+  pronoun: { our: "Chúng tôi", you: "Bạn" },
+  setPronounFromName: () => {},
+});
+
+export const usePronoun = () => useContext(PronounContext);
 
 // ─── Theme Context ───────────────────────────────────────────────────────────
 interface ThemeContextType {
@@ -642,6 +674,9 @@ const LanguageContext = createContext<LanguageContextType>({
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [paletteId, setPaletteId] = useState("savvy_red");
   const [lang, setLang] = useState<Language>("vi");
+  const [pronoun, setPronoun] = useState(detectViPronoun(""));
+
+  const setPronounFromName = (name: string) => setPronoun(detectViPronoun(name));
 
   const palette = palettes.find((p) => p.id === paletteId) ?? palettes[0];
   const t = translationsMap[lang];
@@ -669,7 +704,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <ThemeContext.Provider value={{ palette, setPaletteId }}>
       <LanguageContext.Provider value={{ lang, setLang, t }}>
-        {children}
+        <PronounContext.Provider value={{ pronoun, setPronounFromName }}>
+          {children}
+        </PronounContext.Provider>
       </LanguageContext.Provider>
     </ThemeContext.Provider>
   );

@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import { Mail, Phone, Heart } from "lucide-react";
-import { useTheme, useLang } from "../contexts/AppContext";
+import { useTheme, useLang, usePronoun } from "../contexts/AppContext";
 
 const FloralDivider = ({ color }: { color: string }) => (
   <svg width="200" height="30" viewBox="0 0 200 30" fill="none" className="mx-auto">
@@ -19,6 +19,7 @@ const FloralDivider = ({ color }: { color: string }) => (
 export function WeddingFooter() {
   const { palette } = useTheme();
   const { t } = useLang();
+  const { pronoun } = usePronoun();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -70,7 +71,7 @@ export function WeddingFooter() {
             {/* Thank you */}
             <div className="mt-8 mb-8 max-w-xl mx-auto">
               <p className="playfair-font" style={{ color: palette.textLight, fontSize: "clamp(1rem, 2.5vw, 1.25rem)", lineHeight: 1.9, fontStyle: "italic", fontWeight: 400, opacity: 0.92 }}>
-                {t.footer.thankYou}
+                {t.footer.thankYou.replace(/\{\{our\}\}/g, pronoun.our).replace(/\{\{you\}\}/g, pronoun.you)}
               </p>
               {/* <p className="mt-6" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.8 }}>
                 {t.footer.withLove}

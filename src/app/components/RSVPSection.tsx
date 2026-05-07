@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef, useState } from "react";
 import { Check } from "lucide-react";
-import { useTheme, useLang } from "../contexts/AppContext";
+import { useTheme, useLang, usePronoun } from "../contexts/AppContext";
 
 interface Wish {
   id: string;
@@ -25,12 +25,15 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
   const formRef = useRef(null);
   const formInView = useInView(formRef, { once: true, margin: "-60px" });
 
+  const { pronoun, setPronounFromName } = usePronoun();
   const [form, setForm] = useState({ name: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (name === "name") setPronounFromName(value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -157,10 +160,10 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
                 {t.rsvp.successTitle(form.name)}
               </h3>
               <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.88rem", lineHeight: 1.9, fontWeight: 300 }}>
-                {t.rsvp.successText}
+                {t.rsvp.successText.replace(/\{\{our\}\}/g, pronoun.our).replace(/\{\{you\}\}/g, pronoun.you)}
               </p>
               <button
-                onClick={() => { setSubmitted(false); setForm({ name: "", message: "" }); }}
+                onClick={() => { setSubmitted(false); setForm({ name: "", message: "" }); setPronounFromName(""); }}
                 className="mt-8"
                 style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500, background: "none", border: "none", cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "4px" }}
               >
