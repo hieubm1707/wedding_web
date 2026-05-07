@@ -234,6 +234,7 @@ export interface Translations {
     badge: string;
     title: string;
     attendingBadge: string;
+    readMore: string;
   };
   location: {
     badge: string;
@@ -407,6 +408,7 @@ const en: Translations = {
     badge: "Heartfelt messages",
     title: "Wishes & Love Notes",
     attendingBadge: "Attending",
+    readMore: "Read more",
   },
   location: {
     badge: "Find us here",
@@ -581,6 +583,7 @@ const vi: Translations = {
     badge: "Những Lời Chúc Từ Trái Tim",
     title: "Lời Chúc Yêu Thương",
     attendingBadge: "Tham dự",
+    readMore: "Xem thêm",
   },
   location: {
     badge: "Tìm Chúng Tôi Tại Đây",
