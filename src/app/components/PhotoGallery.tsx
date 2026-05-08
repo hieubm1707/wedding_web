@@ -6,17 +6,17 @@ import { X, ZoomIn } from "lucide-react";
 import { useTheme, useLang } from "../contexts/AppContext";
 
 const galleryImages = [
-  // { src: "./images/collection_001.jpg", alt: "Couple" },
-  { src: "./images/collection_006.jpg", alt: "Couple" },
-  { src: "./images/collection_011.jpg", alt: "Couple" },
-  { src: "./images/collection_004.jpg", alt: "Couple" },
-  { src: "./images/collection_010.jpg", alt: "Couple" },
-  { src: "./images/collection_013.jpg", alt: "Couple" },
-  // { src: "./images/collection_007.jpg", alt: "Couple" },
-  { src: "./images/collection_012.jpg", alt: "Couple" },
-  { src: "./images/collection_014.jpg", alt: "Couple" },
-  { src: "./images/collection_009.jpg", alt: "Couple" },
-  { src: "./images/collection_008.jpg", alt: "Couple" },
+  // { src: "./images/collection_001.webp", alt: "Couple" },
+  { src: "./images/collection_006.webp", alt: "Couple" },
+  { src: "./images/collection_011.webp", alt: "Couple" },
+  { src: "./images/collection_004.webp", alt: "Couple" },
+  { src: "./images/collection_010.webp", alt: "Couple" },
+  { src: "./images/collection_013.webp", alt: "Couple" },
+  // { src: "./images/collection_007.webp", alt: "Couple" },
+  { src: "./images/collection_012.webp", alt: "Couple" },
+  { src: "./images/collection_014.webp", alt: "Couple" },
+  { src: "./images/collection_009.webp", alt: "Couple" },
+  { src: "./images/collection_008.webp", alt: "Couple" },
 ];
 
 function GalleryImage({ img, index, onOpen }: { img: typeof galleryImages[0]; index: number; onOpen: (src: string) => void }) {

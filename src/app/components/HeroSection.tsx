@@ -16,7 +16,7 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('./images/hero_image_002.jpg')"
+          backgroundImage: "url('./images/hero_image_002.webp')",
         }}
       />
 
