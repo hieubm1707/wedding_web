@@ -12,6 +12,7 @@ import { LocationSection } from "./components/LocationSection";
 import { WeddingFooter } from "./components/WeddingFooter";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { getWishes, addWish, type Wish, type WishInput } from "./services/apiWrapper";
+import { InvitePage } from "./pages/InvitePage";
 
 function WeddingApp() {
   const [wishes, setWishes] = useState<Wish[]>([]);
@@ -51,9 +52,10 @@ function WeddingApp() {
 }
 
 export default function App() {
+  const isInvite = window.location.pathname.startsWith("/invite");
   return (
     <AppProvider>
-      <WeddingApp />
+      {isInvite ? <InvitePage /> : <WeddingApp />}
     </AppProvider>
   );
 }

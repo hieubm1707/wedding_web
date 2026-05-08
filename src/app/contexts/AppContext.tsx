@@ -675,7 +675,7 @@ const LanguageContext = createContext<LanguageContextType>({
 
 // ─── Provider ────────────────────────────────────────────────────────────────
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [paletteId, setPaletteId] = useState("savvy_red");
+  const [paletteId, setPaletteId] = useState("green");
   const [lang, setLang] = useState<Language>("vi");
   const [pronoun, setPronoun] = useState(detectViPronoun(""));
 

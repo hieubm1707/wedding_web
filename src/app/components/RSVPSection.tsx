@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import { useTheme, useLang, usePronoun } from "../contexts/AppContext";
 import type { Wish, WishInput } from "../services/wishApi";
@@ -22,6 +22,14 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
   const [form, setForm] = useState({ name: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const savedName = localStorage.getItem("guestName");
+    if (savedName && !form.name) {
+      setForm((prev) => ({ ...prev, name: savedName }));
+      setPronounFromName(savedName);
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
