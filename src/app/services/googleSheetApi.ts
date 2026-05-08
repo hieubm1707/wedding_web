@@ -28,11 +28,11 @@
 
 import type { Wish, WishInput } from "./wishApi";
 
-const SCRIPT_URL = import.meta.env.GOOGLE_SHEET_SCRIPT_URL ?? "";
+const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SHEET_SCRIPT_URL ?? "";
 
 export async function fetchWishesFromSheet(): Promise<Wish[]> {
   if (!SCRIPT_URL) {
-    console.warn("GOOGLE_SHEET_SCRIPT_URL is not set");
+    console.warn("VITE_GOOGLE_SHEET_SCRIPT_URL is not set");
     return [];
   }
   const res = await fetch(SCRIPT_URL, { redirect: "follow" });
@@ -41,7 +41,7 @@ export async function fetchWishesFromSheet(): Promise<Wish[]> {
 }
 
 export async function createWishInSheet(data: WishInput): Promise<Wish> {
-  if (!SCRIPT_URL) throw new Error("GOOGLE_SHEET_SCRIPT_URL is not set");
+  if (!SCRIPT_URL) throw new Error("VITE_GOOGLE_SHEET_SCRIPT_URL is not set");
   const res = await fetch(SCRIPT_URL, {
     method: "POST",
     redirect: "follow",

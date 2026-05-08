@@ -15,11 +15,13 @@ import { getWishes, addWish, type Wish, type WishInput } from "./services/apiWra
 
 function WeddingApp() {
   const [wishes, setWishes] = useState<Wish[]>([]);
+  const [wishesLoading, setWishesLoading] = useState(true);
 
   useEffect(() => {
     getWishes()
       .then((data) => setWishes(data))
-      .catch((err) => console.error("Failed to load wishes:", err));
+      .catch((err) => console.error("Failed to load wishes:", err))
+      .finally(() => setWishesLoading(false));
   }, []);
 
   const handleScrollDown = () => {
@@ -40,7 +42,7 @@ function WeddingApp() {
       <EventDetails />
       <PhotoGallery />
       <RSVPSection wishes={wishes} onAddWish={handleAddWish} />
-      <WishesSlider wishes={wishes} />
+      <WishesSlider wishes={wishes} loading={wishesLoading} />
       {/* <LocationSection /> */}
       <WeddingFooter />
       <SettingsPanel />

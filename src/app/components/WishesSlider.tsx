@@ -144,9 +144,10 @@ function WishCard({ wish, onExpand, index }: { wish: Wish; onExpand: () => void;
 
 interface WishesSliderProps {
   wishes: Wish[];
+  loading?: boolean;
 }
 
-export function WishesSlider({ wishes: extraWishes }: WishesSliderProps) {
+export function WishesSlider({ wishes: extraWishes, loading = false }: WishesSliderProps) {
   const { palette } = useTheme();
   const { t } = useLang();
   const titleRef = useRef(null);
@@ -160,11 +161,17 @@ export function WishesSlider({ wishes: extraWishes }: WishesSliderProps) {
   const sentinelInView = useInView(sentinelRef, { margin: "300px 0px" });
   const hasMore = visibleCount < allWishes.length;
 
+  // When API data arrives, immediately show up to INITIAL_BATCH wishes.
+  useEffect(() => {
+    setVisibleCount((prev) => Math.max(prev, Math.min(INITIAL_BATCH, allWishes.length)));
+  }, [extraWishes.length]);
+
+  // When sentinel scrolls into view (or API data arrives while sentinel is visible), load next batch.
   useEffect(() => {
     if (sentinelInView && hasMore) {
       setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, allWishes.length));
     }
-  }, [sentinelInView]);
+  }, [sentinelInView, allWishes.length]);
 
   const visibleWishes = allWishes.slice(0, visibleCount);
 
@@ -191,6 +198,18 @@ export function WishesSlider({ wishes: extraWishes }: WishesSliderProps) {
           <svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill={palette.primary} /></svg>
           <div className="h-px w-10" style={{ background: palette.medium }} />
         </div>
+        {loading && (
+          <div className="flex justify-center gap-1.5 mt-6">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
+                style={{ width: "5px", height: "5px", borderRadius: "50%", background: palette.medium }}
+              />
+            ))}
+          </div>
+        )}
       </motion.div>
 
       {/* Masonry Grid — full width */}
@@ -207,9 +226,9 @@ export function WishesSlider({ wishes: extraWishes }: WishesSliderProps) {
         </Masonry>
       </ResponsiveMasonry>
 
-      {/* Sentinel — triggers loading next batch when scrolled into view */}
-      {hasMore && (
-        <div ref={sentinelRef} className="flex justify-center pt-10">
+      {/* Always rendered so useInView can observe from mount */}
+      <div ref={sentinelRef} className="flex justify-center pt-10">
+        {hasMore && (
           <div className="flex gap-1.5">
             {[0, 1, 2].map((i) => (
               <motion.div
@@ -220,8 +239,8 @@ export function WishesSlider({ wishes: extraWishes }: WishesSliderProps) {
               />
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Modal */}
       <AnimatePresence>
