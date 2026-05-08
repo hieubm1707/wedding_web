@@ -8,7 +8,7 @@ export interface Wish {
 
 export type WishInput = Pick<Wish, "name" | "message" | "attending">;
 
-const BASE = `${import.meta.env.VITE_API_BASE_URL ?? "https://api.wedding.com"}/api`;
+const BASE = `${import.meta.env.API_BASE_URL ?? "https://api.wedding.com"}/api`;
 
 export async function fetchWishes(): Promise<Wish[]> {
   const res = await fetch(`${BASE}/wishes`);

@@ -11,13 +11,13 @@ import { WishesSlider } from "./components/WishesSlider";
 import { LocationSection } from "./components/LocationSection";
 import { WeddingFooter } from "./components/WeddingFooter";
 import { SettingsPanel } from "./components/SettingsPanel";
-import { fetchWishes, createWish, type Wish, type WishInput } from "./services/wishApi";
+import { getWishes, addWish, type Wish, type WishInput } from "./services/apiWrapper";
 
 function WeddingApp() {
   const [wishes, setWishes] = useState<Wish[]>([]);
 
   useEffect(() => {
-    fetchWishes()
+    getWishes()
       .then((data) => setWishes(data))
       .catch((err) => console.error("Failed to load wishes:", err));
   }, []);
@@ -28,7 +28,7 @@ function WeddingApp() {
   };
 
   const handleAddWish = async (data: WishInput): Promise<void> => {
-    const created = await createWish(data);
+    const created = await addWish(data);
     setWishes((prev) => [created, ...prev]);
   };
 
