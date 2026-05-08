@@ -1,5 +1,6 @@
 import "../styles/fonts.css";
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router";
 import { AppProvider } from "./contexts/AppContext";
 import { NavBar } from "./components/NavBar";
 import { HeroSection } from "./components/HeroSection";
@@ -52,10 +53,12 @@ function WeddingApp() {
 }
 
 export default function App() {
-  const isInvite = window.location.pathname.startsWith("/invite");
   return (
     <AppProvider>
-      {isInvite ? <InvitePage /> : <WeddingApp />}
+      <Routes>
+        <Route path="/invite" element={<InvitePage />} />
+        <Route path="/" element={<WeddingApp />} />
+      </Routes>
     </AppProvider>
   );
 }

@@ -1,31 +1,28 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useTheme } from "../contexts/AppContext";
 import { motion } from "motion/react";
 
 export function InvitePage() {
   const { palette } = useTheme();
+  const navigate = useNavigate();
   const [guestName, setGuestName] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const nameParam = params.get("name");
-    
     if (nameParam) {
       const decoded = decodeURIComponent(nameParam);
-      // Capitalize first letter of each word
       const formattedName = decoded
-        .split(' ')
+        .split(" ")
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-        .join(' ');
-      
+        .join(" ");
       setGuestName(formattedName);
       localStorage.setItem("guestName", formattedName);
     }
   }, []);
 
-  const handleOpen = () => {
-    window.location.href = "/";
-  };
+  const handleOpen = () => navigate("/");
 
   return (
     <div 
