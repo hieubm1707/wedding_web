@@ -9,23 +9,39 @@ const TRUNCATE_LENGTH = 130;
 const INITIAL_BATCH = 24;
 const BATCH_SIZE = 12;
 
-const defaultWishes: Wish[] = [
-  { id: "1", name: "Hương & Tuấn", message: "Wishing you both a lifetime filled with laughter, adventure, and an abundance of love. May every day bring you closer together. Congratulations!", attending: "yes", timestamp: "15 January 2026" },
-  { id: "2", name: "Aunt Bích Ngọc", message: "Two kind souls, now one beautiful journey. May your home always be filled with warmth, joy, and the sweet scent of flowers. We love you both dearly.", attending: "yes", timestamp: "20 January 2026" },
-  { id: "3", name: "Nhóm bạn đại học", message: "From the days of shared lunches and late-night study sessions, to watching you both find each other — we couldn't be prouder. Cheers to forever!", attending: "yes", timestamp: "1 February 2026" },
-  { id: "4", name: "Chú Phương & Cô Lan", message: "A love like yours is rare and beautiful. We are so grateful to witness your story. May your marriage be as radiant as the both of you.", attending: "yes", timestamp: "10 February 2026" },
-  { id: "5", name: "Minh Châu", message: "Linh, you deserve every happiness. Minh, take good care of her! Wishing you a lifetime of beautiful mornings and peaceful evenings together.", attending: "yes", timestamp: "14 February 2026" },
-  { id: "6", name: "Cô Mai", message: "May your love story be as magical and charming as a fairy tale. Wishing you both endless happiness and a lifetime of unforgettable moments together.", attending: "yes", timestamp: "20 February 2026" },
-  { id: "7", name: "Anh Khoa", message: "Linh, you are a wonderful person and I’m so happy you found someone as great as Minh. Wishing you both a lifetime of love, laughter, and happiness together!", attending: "yes", timestamp: "28 February 2026" },
-  { id: "8", name: "Chị Hạnh", message: "Wishing you both a lifetime of love and happiness. May your marriage be filled with laughter, understanding, and endless support for each other. Congratulations!", attending: "yes", timestamp: "5 March 2026" },
-  { id: "9", name: "Gia đình anh Hải", message: "To a beautiful couple, may your love grow stronger with each passing day. Wishing you a lifetime of happiness, laughter, and unforgettable memories together.", attending: "yes", timestamp: "12 March 2026" },
-  { id: "10", name: "Bạn Trang", message: "Linh, seeing you so happy makes my heart full. Wishing you and Minh a marriage filled with love, laughter, and endless adventures together!", attending: "yes", timestamp: "18 March 2026" },
-  { id: "11", name: "Anh Tuấn", message: "Wishing you both a lifetime of love and happiness. May your marriage be filled with laughter, understanding, and endless support for each other. Congratulations!", attending: "yes", timestamp: "25 March 2026" },
-  { id: "12", name: "Cô Dung", message: "May your love story be as magical and charming as a fairy tale. Wishing you both endless happiness and a lifetime of unforgettable moments together.", attending: "yes", timestamp: "30 March 2026" },
-  { id: "13", name: "Anh Huy", message: "Linh, you are a wonderful person and I’m so happy you found someone as great as Minh. Wishing you both a lifetime of love, laughter, and happiness together!", attending: "yes", timestamp: "5 April 2026" },
-  { id: "14", name: "Chị Phương", message: "Two kind souls, now one beautiful journey. May your home always be filled with warmth, joy, and the sweet scent of flowers. We love you both dearly.", attending: "yes", timestamp: "12 April 2026" },
-  { id: "15", name: "Bạn Hương", message: "From the days of shared lunches and late-night study sessions, to watching you both find each other — we couldn't be prouder. Cheers to forever!", attending: "yes", timestamp: "18 April 2026" },
+const MONTH_NAMES_EN = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
 ];
+
+const MONTH_MAP: Record<string, number> = {
+  january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+  july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
+};
+
+function parseWishDate(ts: string): Date {
+  const native = new Date(ts);
+  if (!isNaN(native.getTime())) return native;
+  // Fallback for "15 January 2026" (day-first format)
+  const m = ts.match(/^(\d{1,2})\s+(\w+)\s+(\d{4})$/);
+  if (m) {
+    const month = MONTH_MAP[m[2].toLowerCase()];
+    if (month !== undefined) return new Date(Number(m[3]), month, Number(m[1]));
+  }
+  return new Date(0);
+}
+
+function formatWishDate(ts: string, language: string): string {
+  const d = parseWishDate(ts);
+  if (d.getTime() === 0) return ts;
+  const day = d.getDate();
+  const month = d.getMonth();
+  const year = d.getFullYear();
+  if (language === "vi") {
+    return `${String(day).padStart(2, "0")}/${String(month + 1).padStart(2, "0")}/${year}`;
+  }
+  return `${day} ${MONTH_NAMES_EN[month]} ${year}`;
+}
 
 function QuoteIcon({ color }: { color: string }) {
   return (
@@ -37,7 +53,7 @@ function QuoteIcon({ color }: { color: string }) {
 
 function WishModal({ wish, onClose }: { wish: Wish; onClose: () => void }) {
   const { palette } = useTheme();
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -79,7 +95,7 @@ function WishModal({ wish, onClose }: { wish: Wish; onClose: () => void }) {
         <div className="flex items-center justify-between">
           <div>
             <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.8rem", fontWeight: 500 }}>{wish.name}</p>
-            <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.68rem", letterSpacing: "0.1em", marginTop: "2px" }}>{wish.timestamp}</p>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.68rem", letterSpacing: "0.1em", marginTop: "2px" }}>{formatWishDate(wish.timestamp, lang)}</p>
           </div>
           {wish.attending === "yes" && (
             <span style={{ fontFamily: "'Montserrat', sans-serif", background: palette.bg1, color: palette.primary, fontSize: "0.58rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500, padding: "4px 10px", borderRadius: "20px", border: `1px solid ${palette.border}` }}>
@@ -94,7 +110,7 @@ function WishModal({ wish, onClose }: { wish: Wish; onClose: () => void }) {
 
 function WishCard({ wish, onExpand, index }: { wish: Wish; onExpand: () => void; index: number }) {
   const { palette } = useTheme();
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const isTruncated = wish.message.length > TRUNCATE_LENGTH;
   const displayMessage = isTruncated
     ? wish.message.slice(0, TRUNCATE_LENGTH).trimEnd() + "…"
@@ -111,26 +127,34 @@ function WishCard({ wish, onExpand, index }: { wish: Wish; onExpand: () => void;
         border: `1px solid ${palette.border}`,
         borderRadius: "4px",
         padding: "24px 26px",
+        width: "100%",
+        minHeight: "160px",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
-      <div className="mb-4">
-        <QuoteIcon color={palette.light} />
+      <div>
+        <div className="mb-4">
+          <QuoteIcon color={palette.light} />
+        </div>
+        <p className="playfair-font" style={{ color: palette.text, fontSize: "0.92rem", lineHeight: 1.85, fontStyle: "italic", fontWeight: 400, marginBottom: isTruncated ? "10px" : 0 }}>
+          {displayMessage}
+        </p>
+        {isTruncated && (
+          <button
+            onClick={onExpand}
+            style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 500, background: "none", border: "none", cursor: "pointer", padding: 0, textDecoration: "underline", textUnderlineOffset: "3px", display: "block" }}
+          >
+            {t.wishes.readMore}
+          </button>
+        )}
       </div>
-      <p className="playfair-font" style={{ color: palette.text, fontSize: "0.92rem", lineHeight: 1.85, fontStyle: "italic", fontWeight: 400, marginBottom: isTruncated ? "10px" : "14px" }}>
-        {displayMessage}
-      </p>
-      {isTruncated && (
-        <button
-          onClick={onExpand}
-          style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 500, background: "none", border: "none", cursor: "pointer", padding: 0, textDecoration: "underline", textUnderlineOffset: "3px", marginBottom: "14px", display: "block" }}
-        >
-          {t.wishes.readMore}
-        </button>
-      )}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between" style={{ marginTop: "14px" }}>
         <div>
           <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.78rem", fontWeight: 500 }}>{wish.name}</p>
-          <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.65rem", letterSpacing: "0.1em", marginTop: "2px" }}>{wish.timestamp}</p>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.65rem", letterSpacing: "0.1em", marginTop: "2px" }}>{formatWishDate(wish.timestamp, lang)}</p>
         </div>
         {wish.attending === "yes" && (
           <span style={{ fontFamily: "'Montserrat', sans-serif", background: palette.bg1, color: palette.primary, fontSize: "0.58rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500, padding: "3px 9px", borderRadius: "20px", border: `1px solid ${palette.border}` }}>
@@ -153,7 +177,9 @@ export function WishesSlider({ wishes: extraWishes, loading = false }: WishesSli
   const titleRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
 
-  const allWishes = [...defaultWishes, ...extraWishes];
+  const allWishes = [...extraWishes].sort(
+    (a, b) => parseWishDate(b.timestamp).getTime() - parseWishDate(a.timestamp).getTime()
+  );
   const [visibleCount, setVisibleCount] = useState(Math.min(INITIAL_BATCH, allWishes.length));
   const [selectedWish, setSelectedWish] = useState<Wish | null>(null);
 
