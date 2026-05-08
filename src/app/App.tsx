@@ -1,5 +1,5 @@
 import "../styles/fonts.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppProvider } from "./contexts/AppContext";
 import { NavBar } from "./components/NavBar";
 import { HeroSection } from "./components/HeroSection";
@@ -11,25 +11,25 @@ import { WishesSlider } from "./components/WishesSlider";
 import { LocationSection } from "./components/LocationSection";
 import { WeddingFooter } from "./components/WeddingFooter";
 import { SettingsPanel } from "./components/SettingsPanel";
-
-interface Wish {
-  id: string;
-  name: string;
-  message: string;
-  attending: string;
-  timestamp: string;
-}
+import { fetchWishes, createWish, type Wish, type WishInput } from "./services/wishApi";
 
 function WeddingApp() {
   const [wishes, setWishes] = useState<Wish[]>([]);
+
+  useEffect(() => {
+    fetchWishes()
+      .then((data) => setWishes(data))
+      .catch((err) => console.error("Failed to load wishes:", err));
+  }, []);
 
   const handleScrollDown = () => {
     const el = document.getElementById("event-details");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleAddWish = (wish: Wish) => {
-    setWishes((prev) => [wish, ...prev]);
+  const handleAddWish = async (data: WishInput): Promise<void> => {
+    const created = await createWish(data);
+    setWishes((prev) => [created, ...prev]);
   };
 
   return (

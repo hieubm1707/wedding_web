@@ -3,18 +3,11 @@ import { useInView } from "motion/react";
 import { useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { useTheme, useLang, usePronoun } from "../contexts/AppContext";
-
-interface Wish {
-  id: string;
-  name: string;
-  message: string;
-  attending: string;
-  timestamp: string;
-}
+import type { Wish, WishInput } from "../services/wishApi";
 
 interface RSVPSectionProps {
   wishes: Wish[];
-  onAddWish: (wish: Wish) => void;
+  onAddWish: (data: WishInput) => Promise<void>;
 }
 
 export function RSVPSection({ onAddWish }: RSVPSectionProps) {
@@ -36,22 +29,18 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
     if (name === "name") setPronounFromName(value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.message) return;
     setLoading(true);
-    setTimeout(() => {
-      const newWish: Wish = {
-        id: Date.now().toString(),
-        name: form.name,
-        message: form.message,
-        attending: "yes", // Hardcode for Wish interface compatibility
-        timestamp: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" }),
-      };
-      onAddWish(newWish);
+    try {
+      await onAddWish({ name: form.name, message: form.message, attending: "yes" });
       setSubmitted(true);
+    } catch (err) {
+      console.error("Failed to submit wish:", err);
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   const inputStyle: React.CSSProperties = {

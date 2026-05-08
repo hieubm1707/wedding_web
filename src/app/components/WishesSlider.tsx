@@ -3,18 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { X } from "lucide-react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { useTheme, useLang } from "../contexts/AppContext";
+import type { Wish } from "../services/wishApi";
 
 const TRUNCATE_LENGTH = 130;
 const INITIAL_BATCH = 24;
 const BATCH_SIZE = 12;
-
-interface Wish {
-  id: string;
-  name: string;
-  message: string;
-  attending: string;
-  timestamp: string;
-}
 
 const defaultWishes: Wish[] = [
   { id: "1", name: "Hương & Tuấn", message: "Wishing you both a lifetime filled with laughter, adventure, and an abundance of love. May every day bring you closer together. Congratulations!", attending: "yes", timestamp: "15 January 2026" },
