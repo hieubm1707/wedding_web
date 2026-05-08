@@ -37,10 +37,13 @@ export function WeddingFooter() {
 
   return (
     <footer style={{ background: palette.footerBg }}>
-      {/* Wave transition */}
-      <div style={{ background: palette.bg1, lineHeight: 0 }}>
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block", width: "100%" }}>
-          <path d="M0 60 L0 30 Q360 0 720 30 Q1080 60 1440 30 L1440 60 Z" fill={palette.footerBg} />
+      {/* Wave transition — path closes at y=65 (beyond viewBox 60) to prevent sub-pixel bg1 bleed */}
+      <div style={{ background: palette.bg1, lineHeight: 0, fontSize: 0 }}>
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+          style={{ display: "block", width: "100%", marginBottom: "-2px" }}
+          preserveAspectRatio="none"
+        >
+          <path d="M0 65 L0 30 Q360 0 720 30 Q1080 60 1440 30 L1440 65 Z" fill={palette.footerBg} />
         </svg>
       </div>
 

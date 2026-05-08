@@ -174,8 +174,6 @@ interface WishesSliderProps {
 export function WishesSlider({ wishes: extraWishes, loading = false }: WishesSliderProps) {
   const { palette } = useTheme();
   const { t } = useLang();
-  const titleRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
 
   const allWishes = [...extraWishes].sort(
     (a, b) => parseWishDate(b.timestamp).getTime() - parseWishDate(a.timestamp).getTime()
@@ -207,9 +205,9 @@ export function WishesSlider({ wishes: extraWishes, loading = false }: WishesSli
     <section id="wishes" className="py-24 md:py-36 px-4" style={{ background: palette.bg1 }}>
       {/* Header — centered, constrained width */}
       <motion.div
-        ref={titleRef}
         initial={{ opacity: 0, y: 30 }}
-        animate={titleInView ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0 }}
         transition={{ duration: 0.8 }}
         className="text-center mb-14 md:mb-16 max-w-xl mx-auto"
       >

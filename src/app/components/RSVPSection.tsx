@@ -120,14 +120,15 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
               <div>
                 <label style={labelStyle}>{t.rsvp.name}</label>
-                <input name="name" type="text" placeholder={t.rsvp.namePlaceholder} required value={form.name} onChange={handleChange} style={inputStyle}
-                  onFocus={(e) => (e.target.style.borderBottomColor = palette.primary)}
-                  onBlur={(e) => (e.target.style.borderBottomColor = palette.border)} />
+                <input name="name" type="text" placeholder={t.rsvp.namePlaceholder} required value={form.name} onChange={handleChange}
+                  style={{ ...inputStyle, border: `1px solid ${palette.border}`, borderBottom: `1px solid ${palette.border}`, borderRadius: "2px", padding: "10px 16px" }}
+                  onFocus={(e) => (e.target.style.borderColor = palette.primary)}
+                  onBlur={(e) => (e.target.style.borderColor = palette.border)} />
               </div>
               <div>
                 <label style={labelStyle}>{t.rsvp.message}</label>
                 <textarea name="message" placeholder={t.rsvp.messagePlaceholder} required rows={4} value={form.message} onChange={handleChange}
-                  style={{ ...inputStyle, borderBottom: "none", border: `1px solid ${palette.border}`, borderRadius: "2px", padding: "14px 16px", resize: "vertical", minHeight: "110px" }}
+                  style={{ ...inputStyle, border: `1px solid ${palette.border}`, borderRadius: "2px", padding: "14px 16px", resize: "vertical", minHeight: "110px" }}
                   onFocus={(e) => (e.target.style.borderColor = palette.primary)}
                   onBlur={(e) => (e.target.style.borderColor = palette.border)} />
               </div>

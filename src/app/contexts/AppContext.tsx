@@ -609,7 +609,7 @@ const vi: Translations = {
   },
   footer: {
     thankYou:
-      '"Với trái tim tràn đầy yêu thương, {{our}} xin cảm ơn {{you}} vì tình cảm, tiếng cười và sự hiện diện trong cuộc sống của {{our}}. {{you}} không chỉ là khách mời — {{you}} chính là những trang trong câu chuyện của {{our}}."',
+      '"Với trái tim tràn đầy yêu thương, {{our}} xin cảm ơn {{you}} vì tình cảm, tiếng cười và sự hiện diện của {{you}} trong cuộc sống của {{our}}."',
     withLove: "Với tất cả yêu thương,",
     madeWith: "Với tất cả yêu thương · Hiếu & Tiên · 2026",
   },
