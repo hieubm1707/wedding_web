@@ -38,23 +38,21 @@ export function MusicButton() {
   return (
     <div className="fixed bottom-6 right-6 z-50" style={{ width: 48, height: 48 }}>
       {/* Pulsing sound-wave rings — only when playing */}
-      <AnimatePresence>
-        {isPlaying && (
-          <>
-            {[0, 0.55, 1.1].map((delay) => (
-              <motion.span
-                key={delay}
-                className="absolute inset-0 rounded-full pointer-events-none"
-                initial={{ scale: 1, opacity: 0.5 }}
-                animate={{ scale: 1.9, opacity: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.8, repeat: Infinity, delay, ease: "easeOut" }}
-                style={{ border: `1.5px solid ${palette.primary}` }}
-              />
-            ))}
-          </>
-        )}
-      </AnimatePresence>
+      {isPlaying && (
+        <AnimatePresence>
+          {[0, 0.55, 1.1].map((delay) => (
+            <motion.span
+              key={delay}
+              className="absolute inset-0 rounded-full pointer-events-none"
+              initial={{ scale: 1, opacity: 0.5 }}
+              animate={{ scale: 1.9, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.8, repeat: Infinity, delay, ease: "easeOut" }}
+              style={{ border: `1.5px solid ${palette.primary}` }}
+            />
+          ))}
+        </AnimatePresence>
+      )}
 
       <motion.button
         onClick={toggle}

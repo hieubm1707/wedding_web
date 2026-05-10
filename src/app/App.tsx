@@ -45,9 +45,9 @@ function WeddingApp() {
       {/* <OurStory /> */}
       <EventDetails />
       <PhotoGallery />
+      <OurStoryVideo />
       <RSVPSection wishes={wishes} onAddWish={handleAddWish} />
       <WishesSlider wishes={wishes} loading={wishesLoading} />
-      <OurStoryVideo />
       {/* <LocationSection /> */}
       <WeddingFooter />
       {/* <SettingsPanel /> */}
