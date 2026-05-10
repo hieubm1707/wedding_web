@@ -230,6 +230,7 @@ export interface Translations {
     minutes: string;
     seconds: string;
     countdownSub: string;
+    upcomingBadge: string;
   };
   gallery: {
     badge: string;
@@ -413,6 +414,7 @@ const en: Translations = {
     minutes: "Minutes",
     seconds: "Seconds",
     countdownSub: "30 May 2026 · Ho Chi Minh City",
+    upcomingBadge: "Upcoming",
   },
   gallery: {
     badge: "Captured moments",
@@ -597,6 +599,7 @@ const vi: Translations = {
     minutes: "Phút",
     seconds: "Giây",
     countdownSub: "30 Tháng 5 năm 2026 · TP Hồ Chí Minh",
+    upcomingBadge: "Sắp diễn ra",
   },
   gallery: {
     badge: "Khoảnh Khắc Cùng Nhau",

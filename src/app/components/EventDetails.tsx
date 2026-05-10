@@ -66,8 +66,9 @@ function CountdownBlock({ value, label }: { value: number; label: string }) {
   );
 }
 
-function EventCard({ ev, index }: { ev: { icon: string; title: string; date: string; items: { time: string; title: string; venue: string; address: string }[]; note?: string }; index: number }) {
+function EventCard({ ev, index, isNext, isPast }: { ev: { icon: string; title: string; date: string; items: { time: string; title: string; venue: string; address: string }[]; note?: string }; index: number; isNext: boolean; isPast: boolean }) {
   const { palette } = useTheme();
+  const { t } = useLang();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -86,9 +87,37 @@ function EventCard({ ev, index }: { ev: { icon: string; title: string; date: str
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15 }}
       className="flex flex-col p-8 md:p-10 h-full"
-      style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: "2px" }}
+      style={{
+        background: palette.bg,
+        border: isNext ? `2px solid ${palette.primary}` : `1px solid ${palette.border}`,
+        borderRadius: "2px",
+        opacity: isPast ? 0.55 : 1,
+        boxShadow: isNext ? `0 6px 28px ${palette.shadowPrimary}` : undefined,
+      }}
     >
-      <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-full" style={{ background: palette.bg1, color: palette.primary }}>
+      {isNext && (
+        <div className="flex items-center gap-2 mb-5 -mt-1">
+          <span
+            className="relative flex h-2 w-2"
+          >
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: palette.primary }} />
+            <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: palette.primary }} />
+          </span>
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.62rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              fontWeight: 700,
+              color: palette.primary,
+            }}
+          >
+            {t.eventDetails.upcomingBadge}
+          </span>
+        </div>
+      )}
+      <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-full" style={{ background: isNext ? palette.primary : palette.bg1, color: isNext ? palette.textOnDark : palette.primary }}>
         {getIcon()}
       </div>
       <h3 className="mb-3 playfair-font" style={{ color: palette.text, fontSize: "1.4rem", fontWeight: 400 }}>
@@ -175,7 +204,7 @@ export function EventDetails() {
         {/* Event Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 md:mb-20">
           {t.eventDetails.events.map((ev, i) => (
-            <EventCard key={ev.title} ev={ev} index={i} />
+            <EventCard key={ev.title} ev={ev} index={i} isNext={i === targetIndex} isPast={i < targetIndex} />
           ))}
         </div>
 
