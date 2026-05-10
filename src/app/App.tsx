@@ -9,9 +9,11 @@ import { EventDetails } from "./components/EventDetails";
 import { PhotoGallery } from "./components/PhotoGallery";
 import { RSVPSection } from "./components/RSVPSection";
 import { WishesSlider } from "./components/WishesSlider";
+import { OurStoryVideo } from "./components/OurStoryVideo";
 import { LocationSection } from "./components/LocationSection";
 import { WeddingFooter } from "./components/WeddingFooter";
 import { SettingsPanel } from "./components/SettingsPanel";
+import { MusicButton } from "./components/MusicButton";
 import { getWishes, addWish, type Wish, type WishInput } from "./services/apiWrapper";
 import { InvitePage } from "./pages/InvitePage";
 
@@ -45,9 +47,11 @@ function WeddingApp() {
       <PhotoGallery />
       <RSVPSection wishes={wishes} onAddWish={handleAddWish} />
       <WishesSlider wishes={wishes} loading={wishesLoading} />
+      <OurStoryVideo />
       {/* <LocationSection /> */}
       <WeddingFooter />
       {/* <SettingsPanel /> */}
+      <MusicButton />
     </div>
   );
 }

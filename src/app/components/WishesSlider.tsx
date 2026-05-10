@@ -206,7 +206,7 @@ export function WishesSlider({ wishes: extraWishes, loading = false }: WishesSli
   if (allWishes.length === 0) return null;
 
   return (
-    <section id="wishes" className="py-24 md:py-36 px-4" style={{ background: palette.bg1 }}>
+    <section id="wishes" className="py-24 md:py-12 px-6" style={{ background: palette.bg1 }}>
       {/* Header — centered, constrained width */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

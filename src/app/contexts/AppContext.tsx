@@ -299,6 +299,10 @@ export interface Translations {
     subtitle: string;
     openCard: string;
   };
+  storyVideo: {
+    badge: string;
+    title: string;
+  };
 }
 
 const en: Translations = {
@@ -484,6 +488,10 @@ const en: Translations = {
     subtitle: "to celebrate our wedding reception",
     openCard: "Open Invitation",
   },
+  storyVideo: {
+    badge: "Our journey together",
+    title: "The Story of Us",
+  },
 };
 
 const vi: Translations = {
@@ -668,6 +676,10 @@ const vi: Translations = {
     defaultGuest: "Khách Quý",
     subtitle: "Đến dự buổi tiệc chung vui cùng gia đình",
     openCard: "Mở thiệp",
+  },
+  storyVideo: {
+    badge: "Hành trình của chúng mình",
+    title: "Câu chuyện của chúng mình",
   },
 };
 

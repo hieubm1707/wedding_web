@@ -1,8 +1,8 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { X, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTheme, useLang } from "../contexts/AppContext";
 
 const galleryImages = [
@@ -19,7 +19,7 @@ const galleryImages = [
   { src: "./images/collection_008.webp", alt: "Couple" },
 ];
 
-function GalleryImage({ img, index, onOpen }: { img: typeof galleryImages[0]; index: number; onOpen: (src: string) => void }) {
+function GalleryImage({ img, index, onOpen }: { img: typeof galleryImages[0]; index: number; onOpen: (index: number) => void }) {
   const { palette } = useTheme();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
@@ -35,7 +35,7 @@ function GalleryImage({ img, index, onOpen }: { img: typeof galleryImages[0]; in
       style={{ borderRadius: "6px" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => onOpen(img.src)}
+      onClick={() => onOpen(index)}
     >
       <img
         src={img.src}
@@ -46,19 +46,40 @@ function GalleryImage({ img, index, onOpen }: { img: typeof galleryImages[0]; in
       <div
         className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
         style={{ background: `${palette.primary}3A`, opacity: hovered ? 1 : 0, borderRadius: "6px" }}
-      >
-        <ZoomIn size={28} color={palette.textLight} strokeWidth={1.5} />
-      </div>
+      />
     </motion.div>
   );
 }
+
+const NAV_BTN = {
+  background: "rgba(255,255,255,0.12)",
+  border: "1px solid rgba(255,255,255,0.25)",
+  cursor: "pointer",
+} as const;
 
 export function PhotoGallery() {
   const { palette } = useTheme();
   const { t } = useLang();
   const titleRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const navDir = useRef<"left" | "right">("right");
+
+  const goTo = (i: number, dir: "left" | "right") => {
+    navDir.current = dir;
+    setLightboxIndex((i + galleryImages.length) % galleryImages.length);
+  };
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") goTo(lightboxIndex + 1, "right");
+      else if (e.key === "ArrowLeft") goTo(lightboxIndex - 1, "left");
+      else if (e.key === "Escape") setLightboxIndex(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxIndex]);
 
   return (
     <section id="gallery" className="py-8 md:py-12 px-6" style={{ background: palette.bg1 }}>
@@ -88,36 +109,69 @@ export function PhotoGallery() {
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 600: 2, 900: 3 }}>
           <Masonry gutter="16px">
             {galleryImages.map((img, i) => (
-              <GalleryImage key={img.src} img={img} index={i} onOpen={setLightbox} />
+              <GalleryImage key={img.src} img={img} index={i} onOpen={setLightboxIndex} />
             ))}
           </Masonry>
         </ResponsiveMasonry>
       </div>
 
       {/* Lightbox */}
-      {lightbox && (
+      {lightboxIndex !== null && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-16"
           style={{ background: "rgba(30,20,20,0.92)" }}
-          onClick={() => setLightbox(null)}
+          onClick={() => setLightboxIndex(null)}
         >
+          {/* Close */}
           <button
-            onClick={() => setLightbox(null)}
+            onClick={() => setLightboxIndex(null)}
             className="absolute top-5 right-5 flex items-center justify-center w-10 h-10 rounded-full"
-            style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", cursor: "pointer" }}
+            style={NAV_BTN}
           >
             <X size={18} color="#fff" />
           </button>
-          <img
-            src={lightbox.replace("w=800", "w=1600")}
-            alt="Gallery"
+
+          {/* Prev */}
+          <button
+            onClick={(e) => { e.stopPropagation(); goTo(lightboxIndex - 1, "left"); }}
+            className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full"
+            style={NAV_BTN}
+          >
+            <ChevronLeft size={20} color="#fff" />
+          </button>
+
+          {/* Next */}
+          <button
+            onClick={(e) => { e.stopPropagation(); goTo(lightboxIndex + 1, "right"); }}
+            className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full"
+            style={NAV_BTN}
+          >
+            <ChevronRight size={20} color="#fff" />
+          </button>
+
+          {/* Image with slide animation */}
+          <motion.img
+            key={lightboxIndex}
+            src={galleryImages[lightboxIndex].src}
+            alt={galleryImages[lightboxIndex].alt}
+            initial={{ opacity: 0, x: navDir.current === "right" ? 40 : -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
             className="max-w-full max-h-full object-contain"
             style={{ borderRadius: "6px", maxHeight: "90vh" }}
             onClick={(e) => e.stopPropagation()}
           />
+
+          {/* Counter */}
+          <p
+            className="absolute bottom-5"
+            style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.72rem", letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)" }}
+          >
+            {lightboxIndex + 1} / {galleryImages.length}
+          </p>
         </motion.div>
       )}
     </section>
