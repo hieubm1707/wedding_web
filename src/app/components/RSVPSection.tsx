@@ -19,6 +19,9 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
   const formInView = useInView(formRef, { once: true, margin: "-60px" });
 
   const { pronoun, setPronounFromName } = usePronoun();
+  const successText = t.rsvp.successText
+    .replace(/\{\{our\}\}/g, pronoun.our)
+    .replace(/\{\{you\}\}/g, pronoun.you);
   const [form, setForm] = useState({ name: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -158,7 +161,7 @@ export function RSVPSection({ onAddWish }: RSVPSectionProps) {
                 {t.rsvp.successTitle(form.name)}
               </h3>
               <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.88rem", lineHeight: 1.9, fontWeight: 300 }}>
-                {t.rsvp.successText.replace(/\{\{our\}\}/g, pronoun.our).replace(/\{\{you\}\}/g, pronoun.you)}
+                {successText}
               </p>
               <button
                 onClick={() => { setSubmitted(false); setForm({ name: "", message: "" }); setPronounFromName(""); }}

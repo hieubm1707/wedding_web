@@ -688,14 +688,56 @@ export const translationsMap: Record<Language, Translations> = { en, vi };
 // ─── Pronoun Detection ──────────────────────────────────────────────────────
 export function detectViPronoun(name: string): { our: string; you: string } {
   const s = name.trim().toLowerCase();
+  // GĐ Chú - gđ chú
+  if (/^gđ chú(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Gia đình Chú" };
+  // Gia đình Chú - gia đình chú
+  if (/^gia đình chú(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Gia đình Chú" };
+  // GĐ cô - gđ cô
+  if (/^gđ cô(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Gia đình Cô" };
+  // Gia đình Cô - gia đình cô
+  if (/^gia đình cô(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Gia đình Cô" };
+  // GĐ anh - gđ anh
+  if (/^gđ anh(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Gia đình Anh" };
+  // Gia đình Anh - gia đình anh
+  if (/^gia đình anh(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Gia đình Anh" };
+  // GĐ chị - gđ chị
+  if (/^gđ chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Gia đình Chị" };
+  // Gia đình Chị - gia đình chị
+  if (/^gia đình chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Gia đình Chị" };
+  //Cô/Chú - cô/chú
   if (/^cô\/chú(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Cô/Chú" };
-  if (/^anh\/chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Anh/Chị" };
+  // Chú - chú
   if (/^chú(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Chú" };
+  // Cô - cô
   if (/^cô(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Cô" };
+  // GĐ Bác - gđ bác
+  if (/^gđ bác(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Gia đình Bác" };
+  // Gia đình Bác - gia đình bác
+  if (/^gia đình bác(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Gia đình Bác" };
+  // Bác - bác
   if (/^bác(?=\s|$)/.test(s)) return { our: "Chúng con", you: "Bác" };
+  // GĐ Anh/Chị - gđ anh/chị
+  if (/^gđ anh\/chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Gia đình Anh/Chị" };
+  // Gia đình Anh/Chị - gia đình anh/chị
+  if (/^gia đình anh\/chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Gia đình Anh/Chị" };
+  // Anh/Chị - anh/chị
+  if (/^anh\/chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Anh/Chị" };
+  // Vc Anh - vc anh
+  if (/^vc anh(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Vợ chồng Anh" };
+  // Vợ chồng Anh - vợ chồng anh
+  if (/^vợ chồng anh(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Vợ chồng Anh" };
+  // Vợ chồng Chị - vợ chồng chị
+  if (/^vợ chồng chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Vợ chồng Chị" };
+  // Vc Chị - vc chị
+  if (/^vc chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Vợ chồng Chị" };
+  // Anh - anh
   if (/^anh(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Anh" };
+  // Chị - chị
   if (/^chị(?=\s|$)/.test(s)) return { our: "Chúng em", you: "Chị" };
+  // Bạn - bạn
   if (/^bạn(?=\s|$)/.test(s)) return { our: "Chúng mình", you: "Bạn" };
+  // Em - em
+  if (/^em(?=\s|$)/.test(s)) return { our: "Anh chị", you: "Em" };
   return { our: "Chúng tôi", you: "Bạn" };
 }
 
