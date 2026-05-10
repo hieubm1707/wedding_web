@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useTheme, useLang } from "../contexts/AppContext";
 import { motion } from "motion/react";
+import { play as playMusic } from "../services/audioService";
 
 export function InvitePage() {
   const { palette } = useTheme();
@@ -26,6 +27,7 @@ export function InvitePage() {
 
   const handleOpen = () => {
     if (isOpening) return;
+    playMusic().catch(() => {});
     setIsOpening(true);
   };
 

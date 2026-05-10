@@ -1,45 +1,37 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
 import { useTheme } from "../contexts/AppContext";
-
-// Place the audio file at public/music/background.mp3
-const MUSIC_SRC = "/music/background.mp3";
-const VOLUME = 0.35;
+import { play, pause, getAudio } from "../services/audioService";
 
 export function MusicButton() {
   const { palette } = useTheme();
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    const audio = new Audio(MUSIC_SRC);
-    audio.loop = true;
-    audio.volume = VOLUME;
-    audioRef.current = audio;
+    const audio = getAudio();
 
-    audio.play()
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
+
+    // Try autoplay on mount
+    play()
       .then(() => setIsPlaying(true))
-      .catch(() => {
-        // Autoplay blocked by browser — user must click to start
-      });
+      .catch(() => {});
 
     return () => {
-      audio.pause();
-      audio.src = "";
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
     };
   }, []);
 
   const toggle = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
     if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
+      pause();
     } else {
-      audio.play()
-        .then(() => setIsPlaying(true))
-        .catch(() => {});
+      play().catch(() => {});
     }
   };
 
