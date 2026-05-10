@@ -95,13 +95,15 @@ function WishModal({ wish, onClose }: { wish: Wish; onClose: () => void }) {
         <div className="flex items-center justify-between">
           <div>
             <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.8rem", fontWeight: 500 }}>{wish.name}</p>
+          </div>
+          <div>
             <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.68rem", letterSpacing: "0.1em", marginTop: "2px" }}>{formatWishDate(wish.timestamp, lang)}</p>
           </div>
-          {wish.attending === "yes" && (
+          {/* {wish.attending === "yes" && (
             <span style={{ fontFamily: "'Montserrat', sans-serif", background: palette.bg1, color: palette.primary, fontSize: "0.58rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500, padding: "4px 10px", borderRadius: "20px", border: `1px solid ${palette.border}` }}>
               {t.wishes.attendingBadge}
             </span>
-          )}
+          )} */}
         </div>
       </motion.div>
     </motion.div>
@@ -154,13 +156,15 @@ function WishCard({ wish, onExpand, index }: { wish: Wish; onExpand: () => void;
       <div className="flex items-center justify-between" style={{ marginTop: "14px" }}>
         <div>
           <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.78rem", fontWeight: 500 }}>{wish.name}</p>
+        </div>
+        <div>
           <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.65rem", letterSpacing: "0.1em", marginTop: "2px" }}>{formatWishDate(wish.timestamp, lang)}</p>
         </div>
-        {wish.attending === "yes" && (
+        {/* {wish.attending === "yes" && (
           <span style={{ fontFamily: "'Montserrat', sans-serif", background: palette.bg1, color: palette.primary, fontSize: "0.58rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500, padding: "3px 9px", borderRadius: "20px", border: `1px solid ${palette.border}` }}>
             {t.wishes.attendingBadge}
           </span>
-        )}
+        )} */}
       </div>
     </motion.div>
   );

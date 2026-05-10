@@ -95,28 +95,6 @@ function EventCard({ ev, index, isNext, isPast }: { ev: { icon: string; title: s
         boxShadow: isNext ? `0 6px 28px ${palette.shadowPrimary}` : undefined,
       }}
     >
-      {isNext && (
-        <div className="flex items-center gap-2 mb-5 -mt-1">
-          <span
-            className="relative flex h-2 w-2"
-          >
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: palette.primary }} />
-            <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: palette.primary }} />
-          </span>
-          <span
-            style={{
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.62rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              fontWeight: 700,
-              color: palette.primary,
-            }}
-          >
-            {t.eventDetails.upcomingBadge}
-          </span>
-        </div>
-      )}
       <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-full" style={{ background: isNext ? palette.primary : palette.bg1, color: isNext ? palette.textOnDark : palette.primary }}>
         {getIcon()}
       </div>
@@ -158,6 +136,27 @@ function EventCard({ ev, index, isNext, isPast }: { ev: { icon: string; title: s
       {ev.note && (
         <div className="mt-8 pt-6" style={{ borderTop: `1px solid ${palette.light}` }}>
           <p className="playfair-font" style={{ color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>
+        </div>
+      )}
+
+      {isNext && (
+        <div className="flex items-center gap-2 mb-5 -mt-1">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: palette.primary }} />
+            <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: palette.primary }} />
+          </span>
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.62rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              fontWeight: 700,
+              color: palette.primary,
+            }}
+          >
+            {t.eventDetails.upcomingBadge}
+          </span>
         </div>
       )}
     </motion.div>
