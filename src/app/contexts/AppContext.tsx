@@ -489,8 +489,8 @@ const en: Translations = {
     openCard: "Open Invitation",
   },
   storyVideo: {
-    badge: "Our journey together",
-    title: "The Story of Us",
+    badge: "The Story of Us",
+    title: "Bride's Family Celebration - 25/04/2026",
   },
 };
 
@@ -678,8 +678,8 @@ const vi: Translations = {
     openCard: "Mở thiệp",
   },
   storyVideo: {
-    badge: "Hành trình của chúng mình",
-    title: "Câu chuyện của chúng mình",
+    badge: "Câu chuyện của chúng mình",
+    title: "Lễ Vu Quy - 25/05/2026",
   },
 };
 

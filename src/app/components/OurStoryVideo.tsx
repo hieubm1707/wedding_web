@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useTheme, useLang } from "../contexts/AppContext";
 
 // Replace with the actual YouTube video ID (the part after ?v= in the URL)
-const YOUTUBE_VIDEO_ID = "YOUR_VIDEO_ID";
+const YOUTUBE_VIDEO_ID = "llf_L0i9OdA";
 
 export function OurStoryVideo() {
   const { palette } = useTheme();
@@ -69,7 +69,7 @@ export function OurStoryVideo() {
         >
           <iframe
             className="absolute inset-0 w-full h-full"
-            src={`https://www.youtube.com/embed/llf_L0i9OdA?rel=0&modestbranding=1`}
+            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
             title={t.storyVideo.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen

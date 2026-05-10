@@ -215,7 +215,7 @@ export function WishesSlider({ wishes: extraWishes, loading = false }: WishesSli
         transition={{ duration: 0.8 }}
         className="text-center mb-14 md:mb-16 max-w-xl mx-auto"
       >
-        <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
+        <p className="mb-4" style={{ fontFamily: "'Montserrat', sans-serif", color: palette.accent, fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase", fontWeight: 500 }}>
           {t.wishes.badge}
         </p>
         <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400 }}>
