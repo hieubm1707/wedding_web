@@ -134,6 +134,32 @@ export const palettes: ColorPalette[] = [
     navScrollBg: "rgba(255,249,245,0.96)",
   },
   {
+    id: "invitation",
+    name: "Sage & Forest",
+    nameVi: "Xanh Rừng & Cỏ Xanh",
+    swatches: ["#F0EDE5", "#B3BD9B", "#3D5236", "#2A3826"],
+    bg: "#F8F7F1",
+    bg1: "#F0EDE5",
+    bg2: "#E4EAD8",
+    light: "#CDD6BD",
+    medium: "#B3BD9B",
+    accent: "#8FA375",
+    primary: "#3D5236",
+    primaryDim: "#5A7050",
+    text: "#2A3826",
+    textMuted: "#637058",
+    textLight: "#F0EDE5",
+    textOnDark: "#CDD6BD",
+    border: "#C4CCAE",
+    cardBg: "#F8F7F1",
+    footerBg: "#3D5236",
+    countdownBg: "#3D5236",
+    heroGradient: "linear-gradient(to bottom, rgba(240,237,229,0.55) 0%, rgba(143,163,117,0.30) 50%, rgba(240,237,229,0.70) 100%)",
+    shadowAccent: "rgba(179,189,155,0.22)",
+    shadowPrimary: "rgba(61,82,54,0.13)",
+    navScrollBg: "rgba(240,237,229,0.96)",
+  },
+  {
     id: "savvy_red",
     name: "Savvy Red",
     nameVi: "Đỏ Savvy",
@@ -262,6 +288,15 @@ export interface Translations {
     thankYou: string;
     withLove: string;
     madeWith: string;
+  };
+  invite: {
+    date: string;
+    restaurant: string;
+    restaurantAddress: string;
+    greeting: string;
+    defaultGuest: string;
+    subtitle: string;
+    openCard: string;
   };
 }
 
@@ -438,6 +473,15 @@ const en: Translations = {
     withLove: "With all our love,",
     madeWith: "Made with love · Linh & Minh · 2026",
   },
+  invite: {
+    date: "06:00 PM - 30 May 2026",
+    restaurant: "Dai Hy Wedding Restaurant",
+    restaurantAddress: "156 Ly Chieu Hoang, Ho Chi Minh City",
+    greeting: "Together with our families, we joyfully invite",
+    defaultGuest: "Dear Guest",
+    subtitle: "to celebrate our wedding reception",
+    openCard: "Open Invitation",
+  },
 };
 
 const vi: Translations = {
@@ -613,6 +657,15 @@ const vi: Translations = {
     withLove: "Với tất cả yêu thương,",
     madeWith: "Với tất cả yêu thương · Hiếu & Tiên · 2026",
   },
+  invite: {
+    date: "18g00 - ngày 30 Tháng 5 năm 2026",
+    restaurant: "Trung tâm hội nghị yến tiệc Đại Hỷ",
+    restaurantAddress: "156 Lý Chiêu Hoàng, Phường Bình Phú, TP. Hồ Chí Minh",
+    greeting: "Cùng gia đình trân trọng kính mời",
+    defaultGuest: "Khách Quý",
+    subtitle: "Đến dự buổi tiệc chung vui cùng gia đình",
+    openCard: "Mở thiệp",
+  },
 };
 
 export const translationsMap: Record<Language, Translations> = { en, vi };
@@ -675,7 +728,7 @@ const LanguageContext = createContext<LanguageContextType>({
 
 // ─── Provider ────────────────────────────────────────────────────────────────
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [paletteId, setPaletteId] = useState("green");
+  const [paletteId, setPaletteId] = useState("invitation");
   const [lang, setLang] = useState<Language>("vi");
   const [pronoun, setPronoun] = useState(detectViPronoun(""));
 

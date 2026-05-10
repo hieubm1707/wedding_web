@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { useTheme } from "../contexts/AppContext";
+import { useTheme, useLang } from "../contexts/AppContext";
 import { motion } from "motion/react";
 
 export function InvitePage() {
   const { palette } = useTheme();
+  const { t } = useLang();
   const navigate = useNavigate();
   const [guestName, setGuestName] = useState("");
 
@@ -41,7 +42,7 @@ export function InvitePage() {
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 w-full max-w-md overflow-hidden rounded-md shadow-2xl"
+        className="relative z-10 w-full max-w-xl overflow-hidden rounded-md shadow-2xl"
         style={{ 
           backgroundColor: palette.primary,
           border: `1px solid ${palette.primaryDim}`,
@@ -74,12 +75,12 @@ export function InvitePage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="playfair-font mb-6 leading-tight" 
+            className="mussica-font mb-6 leading-tight" 
             style={{ color: palette.light, fontSize: "2rem", letterSpacing: "0.05em" }}
           >
-            THẢO TIÊN<br/>
-            <span style={{ fontSize: "1.2rem", fontStyle: "italic", opacity: 0.8 }}>&amp;</span><br/>
-            MINH HIẾU
+            Minh Hiếu
+            <span style={{ fontSize: "1.2rem", fontStyle: "italic", opacity: 0.8, padding: "0px 20px" }}>&amp;</span>
+            Thảo Tiên
           </motion.h1>
 
           <motion.div 
@@ -88,39 +89,49 @@ export function InvitePage() {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="flex flex-col items-center gap-3 w-full"
           >
-            <div className="h-px w-12 mb-2" style={{ backgroundColor: palette.light, opacity: 0.5 }} />
-            
-            <p style={{ color: palette.light, fontSize: "0.9rem", letterSpacing: "0.1em", fontFamily: "'Montserrat', sans-serif" }}>
-              30 tháng 5, 2026
-            </p>
-
-            <div className="my-1" />
+            <div className="h-px w-24 mb-2" style={{ backgroundColor: palette.light, opacity: 0.5 }} />
 
             <p style={{ color: palette.light, fontSize: "0.9rem", fontFamily: "'Montserrat', sans-serif" }}>
-              Thân Mời
+              {t.invite.greeting}
             </p>
 
-            <div 
+            <div
               className="px-6 py-3 rounded-md my-2 w-full max-w-[280px]"
-              style={{ 
+              style={{
                 backgroundColor: 'rgba(255,255,255,0.08)',
                 border: `1px solid rgba(255,255,255,0.15)`
               }}
             >
               <h2 className="playfair-font m-0" style={{ color: palette.light, fontSize: "1.6rem" }}>
-                {guestName || "Khách Quý"}
+                {guestName || t.invite.defaultGuest}
               </h2>
             </div>
 
-            <p style={{ color: palette.light, fontSize: "0.85rem", opacity: 0.9, marginTop: "8px", fontFamily: "'Montserrat', sans-serif", maxWidth: "260px", lineHeight: "1.6" }}>
-              Đến dự buổi tiệc chung vui cùng gia đình
+            <p style={{ color: palette.light, fontSize: "0.85rem", opacity: 0.9, marginTop: "8px", fontFamily: "'Montserrat', sans-serif", maxWidth: "320px", lineHeight: "1.6" }}>
+              {t.invite.subtitle}
             </p>
 
-            <button 
+            <div className="my-1" />
+         
+            <p style={{ color: palette.light, fontSize: "0.9rem", letterSpacing: "0.1em", fontFamily: "'Montserrat', sans-serif" }}>
+              {t.invite.date}
+            </p>
+            
+         
+            <p style={{ color: palette.light, fontSize: "0.9rem", letterSpacing: "0.1em", fontFamily: "'Montserrat', sans-serif" }}>
+              {t.invite.restaurant}
+            </p>
+         
+            <p style={{ color: palette.light, fontSize: "0.9rem", letterSpacing: "0.1em", fontFamily: "'Montserrat', sans-serif" }}>
+              {t.invite.restaurantAddress}
+            </p>
+
+
+            <button
               onClick={handleOpen}
               className="mt-8 px-10 py-3 rounded-full transition-transform hover:scale-105 active:scale-95"
-              style={{ 
-                backgroundColor: palette.light, 
+              style={{
+                backgroundColor: palette.light,
                 color: palette.primary,
                 fontFamily: "'Montserrat', sans-serif",
                 fontWeight: 600,
@@ -129,7 +140,7 @@ export function InvitePage() {
                 boxShadow: "0 10px 20px rgba(0,0,0,0.15)"
               }}
             >
-              Mở thiệp
+              {t.invite.openCard}
             </button>
           </motion.div>
         </div>
