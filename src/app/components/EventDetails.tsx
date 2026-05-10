@@ -86,78 +86,104 @@ function EventCard({ ev, index, isNext, isPast }: { ev: { icon: string; title: s
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15 }}
-      className="flex flex-col p-8 md:p-10 h-full"
+      className="h-full"
       style={{
-        background: palette.bg,
-        border: isNext ? `2px solid ${palette.primary}` : `1px solid ${palette.border}`,
-        borderRadius: "2px",
         opacity: isPast ? 0.55 : 1,
+        borderRadius: "3px",
         boxShadow: isNext ? `0 6px 28px ${palette.shadowPrimary}` : undefined,
       }}
     >
-      <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-full" style={{ background: isNext ? palette.primary : palette.bg1, color: isNext ? palette.textOnDark : palette.primary }}>
-        {getIcon()}
-      </div>
-      <h3 className="mb-3 playfair-font" style={{ color: palette.text, fontSize: "1.4rem", fontWeight: 400 }}>
-        {ev.title}
-      </h3>
-      <div className="flex items-center gap-2 mb-8" style={{ borderBottom: `1px solid ${palette.border}`, paddingBottom: "1.2rem" }}>
-        <Calendar size={14} strokeWidth={1.5} style={{ color: palette.accent }} />
-        <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.85rem", fontWeight: 500, letterSpacing: "0.05em" }}>{ev.date}</span>
-      </div>
+      {/* Border container — overflow:hidden clips the spinning gradient to the 1.5px gap */}
+      <div
+        className="relative h-full overflow-hidden"
+        style={{
+          padding: isNext ? "1.5px" : "1px",
+          borderRadius: "3px",
+          background: isNext ? palette.primary : palette.border,
+        }}
+      >
+        {isNext && (
+          <motion.div
+            className="absolute pointer-events-none"
+            style={{
+              inset: "-50%",
+              background: "conic-gradient(from 0deg, transparent 0deg, transparent 160deg, rgba(255,255,255,0) 170deg, rgba(255,255,255,0.85) 185deg, rgba(255,255,255,0) 200deg, transparent 210deg, transparent 360deg)",
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          />
+        )}
 
-      <div className="flex flex-col gap-6 flex-1">
-        {ev.items.map((item, i) => (
-          <div key={i} className="flex flex-col gap-4 relative pl-7" style={{ borderLeft: `1.5px dashed ${palette.border} ` }}>
-            <div className="absolute w-2.5 h-2.5 rounded-full -left-[5.5px] top-1" style={{ background: palette.bg, border: `1.5px solid ${palette.primary}` }} />
+        {/* Card surface */}
+        <div
+          className="relative flex flex-col p-8 md:p-10 h-full"
+          style={{ background: palette.bg, borderRadius: "2px" }}
+        >
+          <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-full" style={{ background: isNext ? palette.primary : palette.bg1, color: isNext ? palette.textOnDark : palette.primary }}>
+            {getIcon()}
+          </div>
+          <h3 className="mb-3 playfair-font" style={{ color: palette.text, fontSize: "1.4rem", fontWeight: 400 }}>
+            {ev.title}
+          </h3>
+          <div className="flex items-center gap-2 mb-8" style={{ borderBottom: `1px solid ${palette.border}`, paddingBottom: "1.2rem" }}>
+            <Calendar size={14} strokeWidth={1.5} style={{ color: palette.accent }} />
+            <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.85rem", fontWeight: 500, letterSpacing: "0.05em" }}>{ev.date}</span>
+          </div>
 
-            <div className="flex flex-col">
-              <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.95rem", fontWeight: 600 }}>{item.title}</span>
-            </div>
+          <div className="flex flex-col gap-6 flex-1">
+            {ev.items.map((item, i) => (
+              <div key={i} className="flex flex-col gap-4 relative pl-7" style={{ borderLeft: `1.5px dashed ${palette.border} ` }}>
+                <div className="absolute w-2.5 h-2.5 rounded-full -left-[5.5px] top-1" style={{ background: palette.bg, border: `1.5px solid ${palette.primary}` }} />
 
-            <div className="flex flex-col gap-2">
-              <div className="flex items-start gap-3">
-                <Clock size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
-                <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 400 }}>{item.time}</span>
-              </div>
+                <div className="flex flex-col">
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary, fontSize: "0.95rem", fontWeight: 600 }}>{item.title}</span>
+                </div>
 
-              <div className="flex items-start gap-3">
-                <MapPin size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
-                <div>
-                  <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 500 }}>{item.venue}</p>
-                  <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.8rem", fontWeight: 400, marginTop: "2px", lineHeight: 1.5 }}>{item.address}</p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-start gap-3">
+                    <Clock size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 400 }}>{item.time}</span>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <MapPin size={13} strokeWidth={1.5} style={{ color: palette.textMuted, marginTop: "2px", flexShrink: 0 }} />
+                    <div>
+                      <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.text, fontSize: "0.85rem", fontWeight: 500 }}>{item.venue}</p>
+                      <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textMuted, fontSize: "0.8rem", fontWeight: 400, marginTop: "2px", lineHeight: 1.5 }}>{item.address}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {ev.note && (
-        <div className="mt-8 pt-6" style={{ borderTop: `1px solid ${palette.light}` }}>
-          <p className="playfair-font" style={{ color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>
+          {ev.note && (
+            <div className="mt-8 pt-6" style={{ borderTop: `1px solid ${palette.light}` }}>
+              <p className="playfair-font" style={{ color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>
+            </div>
+          )}
+          {isNext && (
+            <div className="flex items-center gap-2 mt-6 md:mb-5">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: palette.primary }} />
+                <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: palette.primary }} />
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  fontWeight: 700,
+                  color: palette.primary,
+                }}
+              >
+                {t.eventDetails.upcomingBadge}
+              </span>
+            </div>
+          )}
         </div>
-      )}
-      {isNext && (
-        <div className="flex items-center gap-2 mt-6 md:mb-5">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: palette.primary }} />
-            <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: palette.primary }} />
-          </span>
-          <span
-            style={{
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.62rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              fontWeight: 700,
-              color: palette.primary,
-            }}
-          >
-            {t.eventDetails.upcomingBadge}
-          </span>
-        </div>
-      )}
+      </div>
     </motion.div>
   );
 }
