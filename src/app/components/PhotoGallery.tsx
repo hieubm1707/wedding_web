@@ -143,6 +143,10 @@ export function PhotoGallery() {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-16"
           style={{ background: "rgba(30,20,20,0.92)" }}
           onClick={() => setLightboxIndex(null)}
+          onPanEnd={(_, info) => {
+            if (info.offset.x < -50) goTo(lightboxIndex + 1, "right");
+            else if (info.offset.x > 50) goTo(lightboxIndex - 1, "left");
+          }}
         >
           {/* Close */}
           <button
