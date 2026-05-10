@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useTheme, useLang } from "../contexts/AppContext";
 
 // Replace with the actual YouTube video ID (the part after ?v= in the URL)
-const YOUTUBE_VIDEO_ID = "llf_L0i9OdA";
+const YOUTUBE_VIDEO_ID = "AWA0Si4Exxo";
 
 export function OurStoryVideo() {
   const { palette } = useTheme();
