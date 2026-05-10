@@ -658,7 +658,7 @@ const vi: Translations = {
     madeWith: "Với tất cả yêu thương · Hiếu & Tiên · 2026",
   },
   invite: {
-    date: "18g00 - ngày 30 Tháng 5 năm 2026",
+    date: "18g00 - 30 Tháng 5, 2026",
     restaurant: "Trung tâm hội nghị yến tiệc Đại Hỷ",
     restaurantAddress: "156 Lý Chiêu Hoàng, Phường Bình Phú, TP. Hồ Chí Minh",
     greeting: "Cùng gia đình trân trọng kính mời",
