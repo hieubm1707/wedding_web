@@ -125,7 +125,7 @@ export function PhotoGallery() {
         </motion.div>
 
         {/* Masonry */}
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 600: 2, 900: 3 }}>
+        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 600: 2, 900: 3 }}>
           <Masonry gutter="16px">
             {galleryImages.map((img, i) => (
               <GalleryImage key={img.src} img={img} index={i} onOpen={setLightboxIndex} />

@@ -93,16 +93,21 @@ export function InvitePage() {
             <span style={{ fontSize: "1.4rem", fontWeight: "bold", fontFamily: "serif" }}>囍</span>
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="mussica-font mb-6 leading-tight" 
-            style={{ color: palette.light, fontSize: "2rem", letterSpacing: "0.05em" }}
+            className="mussica-font mb-6 leading-tight flex flex-col items-center gap-3 md:flex-row md:items-baseline md:gap-0"
+            style={{ color: palette.light, letterSpacing: "0.05em" }}
           >
-            Minh Hiếu
-            <span style={{ fontSize: "1.2rem", fontStyle: "italic", opacity: 0.8, padding: "0px 20px" }}>&amp;</span>
-            Thảo Tiên
+            <span style={{ fontSize: "clamp(1.8rem, 8vw, 2.2rem)" }}>Minh Hiếu</span>
+            <span
+              className="md:px-5"
+              style={{ fontSize: "clamp(1rem, 4vw, 1.2rem)", fontStyle: "italic", opacity: 0.8 }}
+            >
+              &amp;
+            </span>
+            <span style={{ fontSize: "clamp(1.8rem, 8vw, 2.2rem)" }}>Thảo Tiên</span>
           </motion.h1>
 
           <motion.div 
