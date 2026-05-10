@@ -100,28 +100,32 @@ export function WeddingFooter() {
             </nav> */}
 
             {/* Contact */}
-            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8">
-              <a href="mailto:hieubm1707@gmail.com" className="flex items-center justify-center gap-2"
-                style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
-                <Mail size={14} strokeWidth={1.5} />
-                hieubm1707@gmail.com
-              </a>
-              <a href="tel:+84901234567" className="flex items-center justify-center gap-2"
-                style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
-                <Phone size={14} strokeWidth={1.5} />
-                033 736 0984
-              </a>
-              <span className="playfair-font" style={{ color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>&amp;</span>
-              <a href="mailto:tientt1304@gmail.com" className="flex items-center justify-center gap-2"
-                style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
-                <Mail size={14} strokeWidth={1.5} />
-                tientt1304@gmail.com
-              </a>
-              <a href="tel:+84901234567" className="flex items-center justify-center gap-2"
-                style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
-                <Phone size={14} strokeWidth={1.5} />
-                034 545 0642
-              </a>
+            <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-3 sm:gap-6 mt-8">
+              <div className="flex items-center justify-center gap-4">
+                <a href="mailto:hieubm1707@gmail.com" className="flex items-center gap-2"
+                  style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
+                  <Mail size={14} strokeWidth={1.5} />
+                  hieubm1707@gmail.com
+                </a>
+                <a href="tel:0337360984" className="flex items-center gap-2"
+                  style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
+                  <Phone size={14} strokeWidth={1.5} />
+                  033 736 0984
+                </a>
+              </div>
+              <span className="playfair-font" style={{ color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300 }}>&amp;</span>
+              <div className="flex items-center justify-center gap-4">
+                <a href="mailto:tientt1304@gmail.com" className="flex items-center gap-2"
+                  style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
+                  <Mail size={14} strokeWidth={1.5} />
+                  tientt1304@gmail.com
+                </a>
+                <a href="tel:0345450642" className="flex items-center gap-2"
+                  style={{ fontFamily: "'Montserrat', sans-serif", color: mutedTextColor, fontSize: "0.78rem", fontWeight: 300, textDecoration: "none" }}>
+                  <Phone size={14} strokeWidth={1.5} />
+                  034 545 0642
+                </a>
+              </div>
             </div>
 
             {/* Bottom */}

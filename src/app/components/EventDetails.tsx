@@ -138,9 +138,8 @@ function EventCard({ ev, index, isNext, isPast }: { ev: { icon: string; title: s
           <p className="playfair-font" style={{ color: palette.accent, fontSize: "0.85rem", fontStyle: "italic" }}>{ev.note}</p>
         </div>
       )}
-
       {isNext && (
-        <div className="flex items-center gap-2 mb-5 -mt-1">
+        <div className="flex items-center gap-2 mt-6 md:mb-5">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: palette.primary }} />
             <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: palette.primary }} />
