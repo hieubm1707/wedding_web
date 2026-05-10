@@ -8,6 +8,7 @@ export function InvitePage() {
   const { t } = useLang();
   const navigate = useNavigate();
   const [guestName, setGuestName] = useState("");
+  const [isOpening, setIsOpening] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -23,7 +24,10 @@ export function InvitePage() {
     }
   }, []);
 
-  const handleOpen = () => navigate("/");
+  const handleOpen = () => {
+    if (isOpening) return;
+    setIsOpening(true);
+  };
 
   return (
     <div 
@@ -38,12 +42,28 @@ export function InvitePage() {
         }} 
       />
 
-      <motion.div 
+      {/* Overlay that fades in during open transition */}
+      <motion.div
+        className="absolute inset-0 z-20 pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isOpening ? 1 : 0 }}
+        transition={{ duration: 0.4, delay: 0.25 }}
+        style={{ backgroundColor: palette.bg }}
+      />
+
+      <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        animate={isOpening
+          ? { opacity: 0, scale: 1.06, y: -24 }
+          : { opacity: 1, scale: 1, y: 0 }
+        }
+        transition={isOpening
+          ? { duration: 0.48, ease: [0.4, 0, 1, 1] }
+          : { duration: 0.8, ease: "easeOut" }
+        }
+        onAnimationComplete={() => { if (isOpening) navigate("/"); }}
         className="relative z-10 w-full max-w-xl overflow-hidden rounded-md shadow-2xl"
-        style={{ 
+        style={{
           backgroundColor: palette.primary,
           border: `1px solid ${palette.primaryDim}`,
           boxShadow: `0 20px 40px ${palette.shadowPrimary}, 0 0 0 1px ${palette.primaryDim} inset`
@@ -127,21 +147,34 @@ export function InvitePage() {
             </p>
 
 
-            <button
-              onClick={handleOpen}
-              className="mt-8 px-10 py-3 rounded-full transition-transform hover:scale-105 active:scale-95"
-              style={{
-                backgroundColor: palette.light,
-                color: palette.primary,
-                fontFamily: "'Montserrat', sans-serif",
-                fontWeight: 600,
-                fontSize: "0.9rem",
-                letterSpacing: "0.05em",
-                boxShadow: "0 10px 20px rgba(0,0,0,0.15)"
-              }}
-            >
-              {t.invite.openCard}
-            </button>
+            <div className="relative mt-8 inline-flex">
+              {isOpening && (
+                <motion.span
+                  className="absolute inset-0 rounded-full pointer-events-none"
+                  initial={{ scale: 1, opacity: 0.8 }}
+                  animate={{ scale: 2.4, opacity: 0 }}
+                  transition={{ duration: 0.55, ease: "easeOut" }}
+                  style={{ border: `2px solid ${palette.light}` }}
+                />
+              )}
+              <motion.button
+                onClick={handleOpen}
+                whileTap={{ scale: 0.92 }}
+                className="px-10 py-3 rounded-full"
+                style={{
+                  backgroundColor: palette.light,
+                  color: palette.primary,
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontWeight: 600,
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.05em",
+                  boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
+                  cursor: isOpening ? "default" : "pointer",
+                }}
+              >
+                {t.invite.openCard}
+              </motion.button>
+            </div>
           </motion.div>
         </div>
       </motion.div>
