@@ -23,8 +23,7 @@ export default async function middleware(request: Request) {
     ? `${SITE_ORIGIN}/invite?to=${encodeURIComponent(decoded.trim())}`
     : `${SITE_ORIGIN}/invite`;
 
-  const title = `Lễ Cưới: Hiếu & Tiên — Mời ${name}`;
-  const description = `Trân trọng kính mời ${name} đến dự lễ cưới của chúng tôi.`;
+  const title = `Lễ Báo Hỷ: Hiếu & Tiên — Thân Mời ${name}`;
 
   const originRes = await fetch(new URL("/index.html", url.origin), {
     headers: { "x-middleware-bypass": "1" },
@@ -37,13 +36,10 @@ export default async function middleware(request: Request) {
   let html = await originRes.text();
 
   html = replaceMeta(html, 'name="title"', title);
-  html = replaceMeta(html, 'name="description"', description);
   html = replaceMeta(html, 'property="og:url"', canonicalUrl);
   html = replaceMeta(html, 'property="og:title"', title);
-  html = replaceMeta(html, 'property="og:description"', description);
   html = replaceMeta(html, 'property="twitter:url"', canonicalUrl);
   html = replaceMeta(html, 'property="twitter:title"', title);
-  html = replaceMeta(html, 'property="twitter:description"', description);
   html = html.replace(
     /<title>[^<]*<\/title>/,
     `<title>${title}</title>`,
