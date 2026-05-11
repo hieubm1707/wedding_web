@@ -23,7 +23,7 @@ export default async function middleware(request: Request) {
     ? `${SITE_ORIGIN}/invite?to=${encodeURIComponent(decoded.trim())}`
     : `${SITE_ORIGIN}/invite`;
 
-  const title = `Lễ Báo Hỷ: Hiếu & Tiên — Thân Mời ${name}`;
+  const title = `Lễ Báo Hỷ: Minh Hiếu & Thảo Tiên — Thân Mời ${name}`;
 
   const originRes = await fetch(new URL("/index.html", url.origin), {
     headers: { "x-middleware-bypass": "1" },
