@@ -103,7 +103,14 @@ export function InvitePage() {
             <span style={{ fontSize: "clamp(1.8rem, 8vw, 2.2rem)" }}>Minh Hiếu</span>
             <span
               className="md:px-5"
-              style={{ fontSize: "clamp(1rem, 4vw, 1.2rem)", fontStyle: "italic", opacity: 0.8 }}
+              style={{
+                fontFamily: "'Playfair Display', Georgia, serif",
+                fontSize: "clamp(1.4rem, 5vw, 1.8rem)",
+                fontStyle: "italic",
+                fontWeight: 500,
+                opacity: 0.85,
+                lineHeight: 1,
+              }}
             >
               &amp;
             </span>
