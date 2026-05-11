@@ -679,7 +679,7 @@ const vi: Translations = {
   },
   storyVideo: {
     badge: "Câu chuyện của chúng mình",
-    title: "Lễ Vu Quy - 25/05/2026",
+    title: "Lễ Vu Quy - 25/04/2026",
   },
 };
 
