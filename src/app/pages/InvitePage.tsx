@@ -13,7 +13,7 @@ export function InvitePage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const nameParam = params.get("name");
+    const nameParam = params.get("to");
     if (nameParam) {
       const decoded = decodeURIComponent(nameParam);
       const formattedName = decoded
