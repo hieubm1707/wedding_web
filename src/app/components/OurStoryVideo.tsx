@@ -1,10 +1,33 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useTheme, useLang } from "../contexts/AppContext";
+import { play, pause, getAudio } from "../services/audioService";
 
 // Replace with the actual YouTube video ID (the part after ?v= in the URL)
 const YOUTUBE_VIDEO_ID = "AWA0Si4Exxo";
+
+const YT_API_SRC = "https://www.youtube.com/iframe_api";
+
+function loadYouTubeAPI(): Promise<any> {
+  const w = window as any;
+  if (w.YT?.Player) return Promise.resolve(w.YT);
+  if (!w.__ytApiPromise) {
+    w.__ytApiPromise = new Promise<any>((resolve) => {
+      const prev = w.onYouTubeIframeAPIReady;
+      w.onYouTubeIframeAPIReady = () => {
+        if (typeof prev === "function") prev();
+        resolve(w.YT);
+      };
+      if (!document.querySelector(`script[src="${YT_API_SRC}"]`)) {
+        const tag = document.createElement("script");
+        tag.src = YT_API_SRC;
+        document.head.appendChild(tag);
+      }
+    });
+  }
+  return w.__ytApiPromise;
+}
 
 export function OurStoryVideo() {
   const { palette } = useTheme();
@@ -13,6 +36,52 @@ export function OurStoryVideo() {
   const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
   const videoRef = useRef(null);
   const videoInView = useInView(videoRef, { once: true, margin: "-80px" });
+  const playerHostRef = useRef<HTMLDivElement>(null);
+  const musicWasPlayingRef = useRef(false);
+
+  useEffect(() => {
+    let player: any = null;
+    let cancelled = false;
+
+    loadYouTubeAPI().then((YT) => {
+      if (cancelled || !playerHostRef.current) return;
+      player = new YT.Player(playerHostRef.current, {
+        videoId: YOUTUBE_VIDEO_ID,
+        width: "100%",
+        height: "100%",
+        playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+        events: {
+          onReady: () => {
+            const iframe = player?.getIframe?.();
+            if (iframe) {
+              iframe.style.border = "none";
+              iframe.style.borderRadius = "6px";
+            }
+          },
+          onStateChange: (event: { data: number }) => {
+            if (event.data === YT.PlayerState.PLAYING) {
+              musicWasPlayingRef.current = !getAudio().paused;
+              pause();
+            } else if (
+              event.data === YT.PlayerState.PAUSED ||
+              event.data === YT.PlayerState.ENDED
+            ) {
+              if (musicWasPlayingRef.current) play().catch(() => {});
+            }
+          },
+        },
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      try {
+        player?.destroy?.();
+      } catch {
+        // player may already be torn down
+      }
+    };
+  }, []);
 
   return (
     <section className="py-24 md:py-12 px-6" style={{ background: palette.bg1 }}>
@@ -67,13 +136,10 @@ export function OurStoryVideo() {
             boxShadow: `0 12px 40px ${palette.shadowPrimary}`,
           }}
         >
-          <iframe
+          <div
+            ref={playerHostRef}
             className="absolute inset-0 w-full h-full"
-            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
             title={t.storyVideo.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            style={{ border: "none", borderRadius: "6px" }}
           />
         </motion.div>
       </div>
