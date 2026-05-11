@@ -1,3 +1,5 @@
+import { pauseVideo } from "./videoService";
+
 // Place audio file at public/music/background.mp3
 const MUSIC_SRC = "/music/background.mp3";
 const VOLUME = 0.35;
@@ -14,6 +16,7 @@ function get(): HTMLAudioElement {
 }
 
 export function play(): Promise<void> {
+  pauseVideo();
   return get().play();
 }
 

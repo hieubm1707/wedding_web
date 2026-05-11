@@ -3,6 +3,7 @@ import { useInView } from "motion/react";
 import { useRef, useEffect } from "react";
 import { useTheme, useLang } from "../contexts/AppContext";
 import { play, pause, getAudio } from "../services/audioService";
+import { registerPlayer, unregisterPlayer } from "../services/videoService";
 
 // Replace with the actual YouTube video ID (the part after ?v= in the URL)
 const YOUTUBE_VIDEO_ID = "AWA0Si4Exxo";
@@ -52,6 +53,7 @@ export function OurStoryVideo() {
         playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
         events: {
           onReady: () => {
+            registerPlayer(player);
             const iframe = player?.getIframe?.();
             if (iframe) {
               iframe.style.border = "none";
@@ -75,6 +77,7 @@ export function OurStoryVideo() {
 
     return () => {
       cancelled = true;
+      if (player) unregisterPlayer(player);
       try {
         player?.destroy?.();
       } catch {
