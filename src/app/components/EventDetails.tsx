@@ -255,8 +255,13 @@ export function EventDetails() {
           </div>
           <div className="flex items-center justify-center gap-3 mt-10">
             <div className="h-px w-8" style={{ background: `${palette.primaryDim}80` }} />
-            <p style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 500 }}>
-              {t.eventDetails.events[targetIndex]?.title} · {t.eventDetails.events[targetIndex]?.date}
+            <p
+              className="flex flex-col items-center gap-1 md:flex-row md:gap-2"
+              style={{ fontFamily: "'Montserrat', sans-serif", color: palette.textOnDark, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 500 }}
+            >
+              <span>{t.eventDetails.events[targetIndex]?.title}</span>
+              <span className="hidden md:inline" aria-hidden="true">·</span>
+              <span>{t.eventDetails.events[targetIndex]?.date}</span>
             </p>
             <div className="h-px w-8" style={{ background: `${palette.primaryDim}80` }} />
           </div>
