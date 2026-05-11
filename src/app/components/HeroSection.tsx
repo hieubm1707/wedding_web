@@ -122,7 +122,7 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
           transition={{ duration: 1, delay: 1.1 }}
           className="max-w-md playfair-font mt-12"
           style={{
-            color: palette.textMuted,
+            color: palette.text,
             fontSize: "clamp(0.9rem, 2vw, 1.05rem)",
             fontStyle: "italic",
             lineHeight: 1.8,
