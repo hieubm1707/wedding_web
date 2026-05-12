@@ -108,7 +108,7 @@ function WishModal({ wish, onClose }: { wish: Wish; onClose: () => void }) {
 function WishCard({ wish, onExpand, index }: { wish: Wish; onExpand: () => void; index: number }) {
   const { palette } = useTheme();
   const { t, lang } = useLang();
-  const isTruncated = wish.message.length > TRUNCATE_LENGTH;
+  const isTruncated = false;
   const displayMessage = isTruncated
     ? wish.message.slice(0, TRUNCATE_LENGTH).trimEnd() + "…"
     : wish.message;
