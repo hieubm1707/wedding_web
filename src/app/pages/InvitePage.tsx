@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { useTheme, useLang } from "../contexts/AppContext";
 import { motion } from "motion/react";
 import { play as playMusic } from "../services/audioService";
+import { logInvitationOpen } from "../services/googleSheetApi";
 
 export function InvitePage() {
   const { palette } = useTheme();
@@ -28,6 +29,7 @@ export function InvitePage() {
   const handleOpen = () => {
     if (isOpening) return;
     playMusic().catch(() => {});
+    logInvitationOpen(guestName);
     setIsOpening(true);
   };
 

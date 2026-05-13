@@ -29,6 +29,14 @@
 import type { Wish, WishInput } from "./wishApi";
 
 const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SHEET_SCRIPT_URL ?? "";
+const LOG_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SHEET_LOG_URL ?? SCRIPT_URL;
+
+export interface InviteOpenLog {
+  guestName: string;
+  openedAt: string;
+  userAgent: string;
+  referrer: string;
+}
 
 export async function fetchWishesFromSheet(): Promise<Wish[]> {
   if (!SCRIPT_URL) {
@@ -50,4 +58,26 @@ export async function createWishInSheet(data: WishInput): Promise<Wish> {
   });
   if (!res.ok) throw new Error(`Google Sheet POST failed: ${res.status}`);
   return res.json();
+}
+
+export function logInvitationOpen(guestName: string): void {
+  if (!LOG_SCRIPT_URL) return;
+  const payload = {
+    type: "invite_open",
+    guestName: guestName || "Guest",
+    openedAt: new Date().toISOString(),
+    userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+    referrer: typeof document !== "undefined" ? document.referrer : "",
+  };
+  try {
+    void fetch(LOG_SCRIPT_URL, {
+      method: "POST",
+      redirect: "follow",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(payload),
+      keepalive: true, // allow request to complete even after navigation
+    }).catch(() => {});
+  } catch {
+    // swallow — logging must never block the open animation
+  }
 }
