@@ -591,9 +591,9 @@ const vi: Translations = {
         date: "Thứ Bảy, 30 Tháng 05 Năm 2026",
         items: [
           {
-            time: "18:00 Tối",
+            time: "18:00 Đón khách - 19:00 Khai tiệc",
             title: "Tiệc Báo Hỷ",
-            venue: "Nhà hàng tiệc cưới Đại Hỷ",
+            venue: "Nhà hàng tiệc cưới Đại Hỷ (Sảng Như Ý)",
             address: "156 Đ. Lý Chiêu Hoàng, Phường Bình Phú, Quận 6, TP. Hồ Chí Minh",
           }
         ],
