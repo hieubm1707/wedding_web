@@ -593,7 +593,7 @@ const vi: Translations = {
           {
             time: "18:00 Đón khách - 19:00 Khai tiệc",
             title: "Tiệc Báo Hỷ",
-            venue: "Nhà hàng tiệc cưới Đại Hỷ (Sảng Như Ý)",
+            venue: "Nhà hàng Đại Hỷ Palace (Sảnh Như Ý)",
             address: "156 Đ. Lý Chiêu Hoàng, Phường Bình Phú, Quận 6, TP. Hồ Chí Minh",
           }
         ],
