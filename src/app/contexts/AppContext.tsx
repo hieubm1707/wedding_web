@@ -617,7 +617,7 @@ const vi: Translations = {
     badge: "Tham Gia Cùng Chúng Tôi",
     title: "Gửi Lời Chúc",
     description: "Sự hiện diện của bạn là điều quý giá nhất với chúng tôi. Hãy cho chúng tôi biết bạn có thể tham dự, và để lại lời chúc yêu thương.",
-    name: "Họ và Tên *",
+    name: "Tên *",
     namePlaceholder: "Tên của bạn",
     email: "Địa Chỉ Email",
     emailPlaceholder: "email@cua.ban",
