@@ -229,6 +229,38 @@ export function WishesSlideSection({ wishes = [], loading, onRefetch }: WishesSl
     </div>
   ) : null;
 
+  const coupleSignature = (
+    <div className="w-full flex flex-col items-center gap-2 px-8 pt-6 pb-8 pointer-events-none">
+      <div
+        className="h-[1px] w-16 opacity-60 mb-4"
+        style={{ background: palette.primary }}
+      />
+      <div
+        className="mussica-font"
+        style={{
+          color: palette.text,
+          fontSize: "clamp(1rem, 2vw, 1.4rem)",
+          lineHeight: 1.1,
+          fontWeight: 400,
+        }}
+      >
+        Minh Hiếu 🍻 Thảo Tiên
+      </div>
+      <div
+        className="mussica-font mt-1"
+        style={{
+          fontFamily: "'Montserrat', sans-serif",
+          color: palette.primary,
+          fontSize: "clamp(0.7rem, 1.1vw, 0.85rem)",
+          letterSpacing: "0.3em",
+          fontWeight: 500,
+        }}
+      >
+        30 — 05 — 2026
+      </div>
+    </div>
+  );
+
   return (
     <section
       className="relative w-full h-screen min-h-[600px] overflow-hidden"
@@ -272,6 +304,12 @@ export function WishesSlideSection({ wishes = [], loading, onRefetch }: WishesSl
             )}
           </motion.div>
         </AnimatePresence>
+
+        {showWishes && (
+          <div className="absolute bottom-0 right-0 w-full md:w-1/3 z-10">
+            {coupleSignature}
+          </div>
+        )}
       </div>
     </section>
   );
