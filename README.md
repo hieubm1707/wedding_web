@@ -1,7 +1,7 @@
 
-  # Wedding Invitation Website Design
+  # Wishes Wedding Website Design
 
-  This is a code bundle for Wedding Invitation Website Design. The original project is available at https://www.figma.com/design/YV6CKydtCn8CgBJrW5OsAB/Wedding-Invitation-Website-Design.
+  This is a code bundle for Wishes Wedding Website Design.
 
   ## Running the code
 
