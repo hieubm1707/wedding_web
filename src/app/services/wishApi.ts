@@ -2,12 +2,11 @@ export interface Wish {
   id: string;
   name: string;
   message: string;
-  attending: string;
+  image_url: string;
   timestamp: string;
 }
 
-export type WishInput = Pick<Wish, "name" | "message" | "attending">;
-
+export type WishInput = Pick<Wish, "name" | "message" | "image_url">;
 const BASE = `${import.meta.env.VITE_API_BASE_URL ?? "https://api.wedding.com"}/api`;
 
 export async function fetchWishes(): Promise<Wish[]> {

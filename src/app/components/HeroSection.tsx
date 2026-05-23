@@ -1,12 +1,14 @@
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { useTheme, useLang } from "../contexts/AppContext";
+import { Wish } from "../services/wishApi";
 
 interface HeroSectionProps {
-  onScrollDown: () => void;
+  wishes?: Wish[];
+  loading?: boolean;
 }
 
-export function HeroSection({ onScrollDown }: HeroSectionProps) {
+export function HeroSection({ wishes, loading }: HeroSectionProps) {
   const { palette } = useTheme();
   const { t } = useLang();
 
@@ -132,40 +134,7 @@ export function HeroSection({ onScrollDown }: HeroSectionProps) {
         >
           {t.hero.quote}
         </motion.blockquote>
-
-        {/* Divider dot */}
-        {/* <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.3 }}
-          className="flex items-center gap-3"
-        >
-          <div className="h-px w-8" style={{ background: palette.medium }} />
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <circle cx="6" cy="6" r="2" fill={palette.accent} />
-            <circle cx="6" cy="6" r="5" stroke={palette.accent} strokeWidth="0.8" />
-          </svg>
-          <div className="h-px w-8" style={{ background: palette.medium }} />
-        </motion.div> */}
       </div>
-
-      {/* Scroll indicator */}
-      <motion.button
-        onClick={onScrollDown}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer border-none bg-transparent"
-        style={{ fontFamily: "'Montserrat', sans-serif", color: palette.primary }}
-      >
-        {/* <span className="text-xs tracking-[0.2em] uppercase" style={{ fontSize: "0.63rem" }}>{t.hero.scroll}</span> */}
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-        >
-          <ChevronDown size={18} strokeWidth={1.5} />
-        </motion.div>
-      </motion.button>
     </section>
   );
 }
