@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, type TargetAndTransition, type Transition } from "motion/react";
+import { Maximize2, Minimize2 } from "lucide-react";
 import { useTheme } from "../contexts/AppContext";
 import type { Wish } from "../services/wishApi";
 
@@ -10,7 +11,7 @@ interface WishesSlideSectionProps {
 }
 
 const COLLECTION_IMAGES = Array.from(
-  { length: 33 },
+  { length: 32 },
   (_, i) => `./images/collection_${String(i + 1).padStart(3, "0")}.webp`,
 );
 
@@ -95,6 +96,22 @@ export function WishesSlideSection({ wishes = [], loading, onRefetch }: WishesSl
   const [imageIndex, setImageIndex] = useState(0);
   const [wishIndex, setWishIndex] = useState(0);
   const [isLandscape, setIsLandscape] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => undefined);
+    } else {
+      sectionRef.current?.requestFullscreen().catch(() => undefined);
+    }
+  };
 
   // Single tick advances both image and wish together so the combined slide changes as one.
   useEffect(() => {
@@ -263,6 +280,7 @@ export function WishesSlideSection({ wishes = [], loading, onRefetch }: WishesSl
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full h-screen min-h-[600px] overflow-hidden"
       style={{ background: palette.bg }}
     >
@@ -311,6 +329,20 @@ export function WishesSlideSection({ wishes = [], loading, onRefetch }: WishesSl
           </div>
         )}
       </div>
+
+      <button
+        type="button"
+        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+        onClick={toggleFullscreen}
+        className="absolute bottom-4 right-4 z-20 p-2 rounded-full opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 backdrop-blur-sm"
+        style={{
+          background: "rgba(0,0,0,0.45)",
+          color: "#fff",
+          boxShadow: "0 6px 18px -6px rgba(0,0,0,0.5)",
+        }}
+      >
+        {isFullscreen ? <Minimize2 size={12} /> : <Maximize2 size={12} />}
+      </button>
     </section>
   );
 }
