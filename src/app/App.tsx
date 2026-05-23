@@ -1,15 +1,15 @@
 import "../styles/fonts.css";
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import { AppProvider } from "./contexts/AppContext";
-import { HeroSection } from "./components/HeroSection";
+import { WishesSlideSection } from "./components/WishesSlideSection";
 import { getWishes, type Wish } from "./services/apiWrapper";
 
 function WeddingApp() {
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [wishesLoading, setWishesLoading] = useState(true);
 
-  useEffect(() => {
+  const loadWishes = useCallback(() => {
     setWishesLoading(true);
     getWishes()
       .then((data) => setWishes(data))
@@ -17,9 +17,13 @@ function WeddingApp() {
       .finally(() => setWishesLoading(false));
   }, []);
 
+  useEffect(() => {
+    loadWishes();
+  }, [loadWishes]);
+
   return (
     <div style={{ fontFamily: "'Montserrat', sans-serif" }}>
-      <HeroSection wishes={wishes} loading={wishesLoading} />
+      <WishesSlideSection wishes={wishes} loading={wishesLoading} onRefetch={loadWishes} />
     </div>
   );
 }
