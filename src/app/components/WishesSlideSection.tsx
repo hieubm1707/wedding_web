@@ -15,6 +15,11 @@ const COLLECTION_IMAGES = Array.from(
   (_, i) => `./images/collection_${String(i + 1).padStart(3, "0")}.webp`,
 );
 
+// Low-res companion files (~20KB each) used only for the blurred backdrop layer.
+// Generated offline so the GPU blurs a 600px image instead of a 7000px one —
+// removes the per-frame filter cost during transitions.
+const BACKDROP_IMAGES = COLLECTION_IMAGES.map((p) => p.replace(/\.webp$/, "_bg.webp"));
+
 const SLIDE_DURATION_MS = 6000;
 const WISH_THRESHOLD = 12;
 
@@ -137,15 +142,27 @@ export function WishesSlideSection({ wishes = [], loading, onRefetch }: WishesSl
 
   const slideTransition = TRANSITIONS[imageIndex % TRANSITIONS.length];
   const currentImage = COLLECTION_IMAGES[imageIndex];
+  const currentBackdrop = BACKDROP_IMAGES[imageIndex];
   const currentWish = showWishes ? wishes[wishIndex] : undefined;
+
+  // Preload the next two slides (focal + backdrop) while the current one shows.
+  // By transition time the bytes are already in the HTTP cache and decoded.
+  useEffect(() => {
+    const total = COLLECTION_IMAGES.length;
+    [1, 2].forEach((offset) => {
+      const i = (imageIndex + offset) % total;
+      new Image().src = COLLECTION_IMAGES[i];
+      new Image().src = BACKDROP_IMAGES[i];
+    });
+  }, [imageIndex]);
 
   const imageVisual = (
     <>
-      {/* Blurred full-bleed backdrop */}
+      {/* Blurred full-bleed backdrop — uses low-res variant (~20KB) */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('${currentImage}')`,
+          backgroundImage: `url('${currentBackdrop}')`,
           filter: "blur(28px) brightness(0.85) saturate(1.05)",
           transform: "scale(1.15)",
         }}
