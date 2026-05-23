@@ -273,7 +273,7 @@ export function WishesSlideSection({ wishes = [], loading, onRefetch }: WishesSl
           fontWeight: 500,
         }}
       >
-        30 — 05 — 2026
+        30.05.2026
       </div>
     </div>
   );
