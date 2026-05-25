@@ -71,7 +71,7 @@ export function RSVPSection({ wishes }: RSVPSectionProps) {
       return;
     }
     try {
-      const compressed = await compressImage(file, 1500, 0.8);
+      const compressed = await compressImage(file, 2400, 0.8);
       setImagePreview(compressed);
     } catch (err) {
       console.error("Failed to compress image:", err);
