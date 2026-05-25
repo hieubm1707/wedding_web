@@ -6,7 +6,7 @@ import { useTheme, useLang, usePronoun } from "../contexts/AppContext";
 import type { Wish } from "../services/wishApi";
 import { addWish } from "../services/apiWrapper";
 
-async function compressImage(file: File, maxSize = 1500, quality = 0.8): Promise<string> {
+async function compressImage(file: File, maxSize = 2400, quality = 0.8): Promise<string> {
   const sourceUrl = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result as string);
