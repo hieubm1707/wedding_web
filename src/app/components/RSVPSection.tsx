@@ -161,7 +161,7 @@ export function RSVPSection({ wishes }: RSVPSectionProps) {
           className="text-center mb-14"
         >
           <h2 className="playfair-font" style={{ color: palette.text, fontSize: "clamp(2rem, 3vw, 2.5rem)", fontWeight: 400 }}>
-            Hãy chia sẽ cảm xúc của bạn ngay lúc này
+            Hãy chia sẻ cảm xúc của bạn ngay lúc này
           </h2>
           <div className="flex items-center justify-center gap-4 mt-6">
             <div className="h-px w-16 md:w-24" style={{ background: palette.primary, opacity: 0.5 }} />
