@@ -6,7 +6,32 @@ import { useTheme, useLang, usePronoun } from "../contexts/AppContext";
 import type { Wish } from "../services/wishApi";
 import { addWish } from "../services/apiWrapper";
 
+const MAX_INPUT_BYTES = 25 * 1024 * 1024;
+
+let nativeWebPSupport: boolean | null = null;
+function canvasSupportsWebP(): boolean {
+  if (nativeWebPSupport !== null) return nativeWebPSupport;
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = 1;
+  nativeWebPSupport = canvas.toDataURL("image/webp").startsWith("data:image/webp");
+  return nativeWebPSupport;
+}
+
+function blobToDataURL(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(reader.error ?? new Error("Failed to read blob"));
+    reader.readAsDataURL(blob);
+  });
+}
+
 async function compressImage(file: File, maxSize = 2400, quality = 0.8): Promise<string> {
+  if (file.size > MAX_INPUT_BYTES) {
+    throw new Error(`Image too large: ${(file.size / 1024 / 1024).toFixed(1)}MB (max 25MB)`);
+  }
+
   const sourceUrl = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result as string);
@@ -39,7 +64,18 @@ async function compressImage(file: File, maxSize = 2400, quality = 0.8): Promise
   if (!ctx) throw new Error("Canvas 2D context unavailable");
   ctx.drawImage(img, 0, 0, width, height);
 
-  return canvas.toDataURL("image/webp", quality);
+  if (canvasSupportsWebP()) {
+    const dataUrl = canvas.toDataURL("image/webp", quality);
+    return dataUrl;
+  }
+
+  const imageData = ctx.getImageData(0, 0, width, height);
+  const { default: encode } = await import("@jsquash/webp/encode");
+  const buffer = await encode(imageData, { quality: Math.round(quality * 100) });
+  const bytes = new Uint8Array(buffer);
+  const blob = new Blob([bytes], { type: "image/webp" });
+  const dataUrl = await blobToDataURL(blob);
+  return dataUrl;
 }
 
 interface RSVPSectionProps {
@@ -74,7 +110,7 @@ export function RSVPSection({ wishes }: RSVPSectionProps) {
       const compressed = await compressImage(file, 2400, 0.8);
       setImagePreview(compressed);
     } catch (err) {
-      console.error("Failed to compress image:", err);
+      console.error("[handleFileChange] Failed to compress image:", err);
     }
   };
 
