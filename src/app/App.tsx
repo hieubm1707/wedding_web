@@ -50,8 +50,7 @@ function WeddingApp() {
       <WishesSlider wishes={wishes} loading={wishesLoading} />
       {/* <LocationSection /> */}
       <WeddingFooter />
-      {/* <SettingsPanel /> */}
-      <MusicButton />
+      <MusicButton /> {/* OR <SettingsPanel /> */}
     </div>
   );
 }
