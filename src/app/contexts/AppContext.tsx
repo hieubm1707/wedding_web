@@ -303,6 +303,25 @@ export interface Translations {
     badge: string;
     title: string;
   };
+  // Nhãn dùng chung cho các primitive trong components/ui (phần lớn là sr-only / aria-label)
+  ui: {
+    close: string;
+    more: string;
+    previous: string;
+    next: string;
+    previousPage: string;
+    nextPage: string;
+    morePages: string;
+    paginationNav: string;
+    breadcrumbNav: string;
+    previousSlide: string;
+    nextSlide: string;
+    sidebar: string;
+    sidebarDescription: string;
+    toggleSidebar: string;
+    commandTitle: string;
+    commandDescription: string;
+  };
 }
 
 const en: Translations = {
@@ -492,6 +511,24 @@ const en: Translations = {
     badge: "The Story of Us",
     title: "Bride's Family Celebration - 25/04/2026",
   },
+  ui: {
+    close: "Close",
+    more: "More",
+    previous: "Previous",
+    next: "Next",
+    previousPage: "Go to previous page",
+    nextPage: "Go to next page",
+    morePages: "More pages",
+    paginationNav: "pagination",
+    breadcrumbNav: "breadcrumb",
+    previousSlide: "Previous slide",
+    nextSlide: "Next slide",
+    sidebar: "Sidebar",
+    sidebarDescription: "Displays the mobile sidebar.",
+    toggleSidebar: "Toggle Sidebar",
+    commandTitle: "Command Palette",
+    commandDescription: "Search for a command to run...",
+  },
 };
 
 const vi: Translations = {
@@ -680,6 +717,24 @@ const vi: Translations = {
   storyVideo: {
     badge: "Câu chuyện của chúng mình",
     title: "Lễ Vu Quy - 25/04/2026",
+  },
+  ui: {
+    close: "Đóng",
+    more: "Xem thêm",
+    previous: "Trước",
+    next: "Sau",
+    previousPage: "Về trang trước",
+    nextPage: "Đến trang sau",
+    morePages: "Thêm trang",
+    paginationNav: "phân trang",
+    breadcrumbNav: "đường dẫn",
+    previousSlide: "Ảnh trước",
+    nextSlide: "Ảnh sau",
+    sidebar: "Thanh bên",
+    sidebarDescription: "Hiển thị thanh bên trên thiết bị di động.",
+    toggleSidebar: "Bật/tắt thanh bên",
+    commandTitle: "Bảng lệnh",
+    commandDescription: "Tìm một lệnh để chạy...",
   },
 };
 
