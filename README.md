@@ -216,13 +216,89 @@ vercel --prod   # deploy production
 
 Hoặc push lên GitHub — Vercel tự build: push vào `main` → Production, push branch khác / mở PR → Preview deployment.
 
-### 6.5 Checklist sau khi deploy
+### 6.5 Trỏ domain Hostinger về Vercel
+
+Làm **sau khi** đã deploy thành công và site chạy được trên URL `*.vercel.app`.
+
+#### Bước 1 — Khai báo domain trên Vercel
+
+Vercel Dashboard → chọn project → **Settings → Domains → Add Domain** → nhập domain (ví dụ `wedding.hieutien.life`).
+
+Hoặc bằng CLI:
+
+```bash
+vercel domains add wedding.hieutien.life
+vercel domains inspect wedding.hieutien.life   # xem record cần khai + trạng thái
+```
+
+Sau khi thêm, Vercel hiển thị **chính xác record DNS cần tạo**. ⚠️ **Luôn dùng giá trị Vercel hiển thị trên màn hình đó**, đừng copy cứng từ tài liệu cũ — Vercel đã đổi IP đích vài lần và giá trị có thể khác nhau tuỳ project/region. Các giá trị phổ biến để đối chiếu:
+
+| Loại domain | Type | Name | Points to |
+| --- | --- | --- | --- |
+| Subdomain (`wedding.hieutien.life`) | `CNAME` | `wedding` | `cname.vercel-dns.com` |
+| Apex / root (`hieutien.life`) | `A` | `@` | `76.76.21.21` |
+| `www` | `CNAME` | `www` | `cname.vercel-dns.com` |
+
+> Apex domain **không dùng được CNAME** (giới hạn của chuẩn DNS) — bắt buộc là record `A`.
+
+#### Bước 2 — Tạo record trong Hostinger hPanel
+
+hPanel → **Domains** → chọn domain → **DNS / Nameservers** → tab **DNS Records** (đường tắt: hPanel → *Advanced* → *DNS Zone Editor*).
+
+1. **Xoá / sửa record cũ trùng tên trước.** Hostinger tạo sẵn record `A` cho `@` và `www` trỏ về hosting của họ. Nếu để nguyên, DNS sẽ xung đột và domain vẫn về trang cũ của Hostinger.
+2. **Add record** với giá trị Vercel đã cho ở Bước 1:
+   - **Type**: `CNAME` (subdomain) hoặc `A` (apex)
+   - **Name**: chỉ phần subdomain, **không gõ full domain** — ví dụ `wedding`, không phải `wedding.hieutien.life`. Apex thì dùng `@`.
+   - **Points to / Content**: giá trị Vercel hiển thị
+   - **TTL**: để `300` (5 phút) trong lúc setup cho nhanh, xong rồi tăng lại `3600`
+3. Lưu lại.
+
+#### Cách khác — chuyển hẳn nameserver sang Vercel
+
+Nếu muốn Vercel quản lý toàn bộ DNS: hPanel → **Domains → Nameservers → Change nameservers → Use custom nameservers**, điền:
+
+```
+ns1.vercel-dns.com
+ns2.vercel-dns.com
+```
+
+⚠️ Đổi nameserver là **giao toàn quyền DNS cho Vercel**: mọi record khác đang có ở Hostinger (đặc biệt là **MX cho email**, `TXT` cho SPF/DKIM, subdomain khác) sẽ ngừng hoạt động cho tới khi bạn khai lại thủ công bên Vercel. Nếu đang dùng email theo tên miền, hãy **chụp lại toàn bộ DNS zone của Hostinger trước** rồi mới đổi. Với dự án này chỉ cần một subdomain nên **cách thêm record ở Bước 2 an toàn hơn** — khuyến nghị dùng cách đó.
+
+#### Bước 3 — Kiểm tra
+
+```bash
+dig +short wedding.hieutien.life            # phải ra đích của Vercel
+dig +short wedding.hieutien.life CNAME
+nslookup wedding.hieutien.life 8.8.8.8      # kiểm tra qua DNS công cộng
+```
+
+- Trên Vercel: **Settings → Domains** phải chuyển sang **Valid Configuration** (có dấu tích xanh).
+- Vercel tự cấp SSL (Let's Encrypt) sau khi DNS đúng — thường vài phút, có thể tới ~30 phút.
+- DNS propagate thường 5–30 phút, chậm nhất có thể tới 24–48h nếu TTL cũ để cao (Hostinger mặc định 14400s = 4 tiếng). Muốn nhanh: **hạ TTL của record cũ xuống 300 và chờ hết TTL cũ trước khi đổi**.
+
+#### Bước 4 — Cập nhật `SITE_ORIGIN` (bắt buộc với repo này)
+
+Domain mới sẽ **không** tự động phản ánh vào thẻ OG. Sửa `middleware.ts`:
+
+```ts
+const SITE_ORIGIN = "https://domain-moi-cua-ban";
+```
+
+rồi **redeploy**. Bỏ qua bước này thì link `/invite?to=...` share lên Zalo/Messenger vẫn hiện `og:url` trỏ về domain cũ.
+
+#### Chọn domain chính & redirect
+
+Trong **Settings → Domains**, khi có nhiều domain (apex + `www`), bấm **⋯ → Set as Primary** cho domain muốn làm chính; domain còn lại đặt **Redirect to** domain chính để tránh trùng lặp nội dung.
+
+### 6.6 Checklist sau khi deploy
 
 - [ ] Trang `/` load, ảnh và font `Mussica Swash` (trong `public/fonts/`) hiển thị đúng.
 - [ ] `/invite?to=Nguyễn%20Văn%20A` hiện đúng tên khách.
 - [ ] Share link `/invite?to=...` lên Zalo/Messenger → preview có tên khách (middleware hoạt động).
 - [ ] Form RSVP gửi được lời chúc và ghi xuống Google Sheet.
 - [ ] F5 trực tiếp tại `/invite` không ra 404 (SPA rewrite hoạt động).
+- [ ] Domain riêng đã **Valid Configuration** trên Vercel, truy cập bằng `https://` không cảnh báo SSL.
+- [ ] `SITE_ORIGIN` trong `middleware.ts` khớp với domain thật và đã redeploy.
 
 ---
 
@@ -261,3 +337,9 @@ Chi tiết kiến trúc, quy ước theming/i18n: xem `CLAUDE.md` và `guideline
 | `/invite` bị 404 khi F5 | Thiếu rewrite trong `vercel.json` |
 | Sửa `.env` mà không thấy thay đổi | Vite chỉ đọc env lúc khởi động — restart `npm run dev`; trên Vercel phải redeploy không dùng build cache |
 | Biến trả về `undefined` | Thiếu tiền tố `VITE_`, hoặc sai chính tả tên biến |
+| Vercel báo `Invalid Configuration` ở Domains | Record DNS sai giá trị, hoặc record cũ của Hostinger chưa xoá nên bị xung đột |
+| Domain vẫn về trang mặc định của Hostinger | Record `A`/`CNAME` cũ trỏ về hosting Hostinger vẫn còn — xoá đi (xem mục 6.5 Bước 2) |
+| Đổi DNS xong vẫn chưa ăn | Còn cache TTL cũ (Hostinger mặc định 4 tiếng) — chờ hết TTL, hoặc kiểm tra qua `nslookup <domain> 8.8.8.8` |
+| Domain lên nhưng lỗi SSL | DNS vừa đúng, Vercel đang cấp cert — chờ vài phút; nếu quá lâu bấm **Refresh** trong Settings → Domains |
+| Email theo tên miền chết sau khi đổi nameserver | MX record của Hostinger chưa được khai lại bên Vercel — xem cảnh báo ở mục 6.5 |
+| Domain đúng nhưng preview Zalo/Facebook vẫn ra domain cũ | Chưa cập nhật `SITE_ORIGIN` trong `middleware.ts`, hoặc Facebook/Zalo còn cache — dùng Facebook Sharing Debugger để scrape lại |
